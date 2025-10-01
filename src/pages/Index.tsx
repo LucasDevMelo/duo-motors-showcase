@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import heroImage from "@/assets/logo-duo-motors.png";
-import catalogoCar from "@/assets/catalogo-car.jpg";
-import vendaCar from "@/assets/venda-car.jpg";
-import consignadoCar from "@/assets/consignado-car.jpg";
+import catalogoCar from "@/assets/catalogo-car.png";
+import vendaCar from "@/assets/venda-car.png";
+import consignadoCar from "@/assets/consignado-car.png";
 import destaquePorsche from "@/assets/destaque-porsche.jpg";
+import destaqueBMW from "@/assets/destaque-bmw.jpg";
+import destaqueJaguar from "@/assets/destaque-jaguar.jpg";
 
+// Array de carros em destaque
 const featuredCars = [
   {
     brand: "PORSCHE",
@@ -18,151 +20,233 @@ const featuredCars = [
     version: "3.0 24V H6 GASOLINA CARRERA PDK",
     year: "2020/2021",
     km: "11.859 km",
-    price: "R$ 756.750,00"
-  }
+    price: "R$ 756.750,00",
+    image: destaquePorsche,
+  },
+  {
+    brand: "BMW",
+    model: "M4",
+    version: "3.0 I6 Biturbo",
+    year: "2019/2020",
+    km: "25.000 km",
+    price: "R$ 589.900,00",
+    image: destaqueBMW,
+  },
+  {
+    brand: "JAGUAR",
+    model: "F-Type",
+    version: "5.0 V8 Supercharged",
+    year: "2021/2022",
+    km: "5.500 km",
+    price: "R$ 659.000,00",
+    image: destaqueJaguar,
+  },
 ];
 
 const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  // Troca automática de slide a cada 5 segundos
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) =>
+        prev === featuredCars.length - 1 ? 0 : prev + 1
+      );
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen">
       <Header />
       <WhatsAppButton />
-      
+
       {/* Hero Section */}
-      <section className="relative h-[600px] mt-16 overflow-hidden">
+      <section className="relative h-[90vh] sm:h-screen mt-16 overflow-hidden">
+        {/* Vídeo de fundo */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="/videos/hero-bg.mp4" type="video/mp4" />
+          Seu navegador não suporta vídeo de fundo.
+        </video>
+
+        {/* Overlay escuro */}
         <div className="absolute inset-0 bg-black/50 z-10" />
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url(${heroImage})`
-          }}
-        />
-        
-        <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 max-w-2xl">
+
+        {/* Conteúdo */}
+        <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-center text-center sm:text-left">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white mb-6 max-w-2xl mx-auto sm:mx-0">
             Encontre seu novo carro na Duo Motors
           </h1>
-          <Button asChild size="lg" className="bg-primary hover:bg-primary/90 w-fit">
+          <Button
+            asChild
+            size="lg"
+            className="bg-primary hover:bg-primary/90 w-fit mx-auto sm:mx-0"
+          >
             <Link to="/catalogo">Ver o catálogo completo +</Link>
           </Button>
         </div>
       </section>
 
       {/* Quick Navigation */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Explorar todos os carros ▸
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Link 
-              to="/catalogo" 
-              className="relative h-64 rounded-lg overflow-hidden group cursor-pointer"
-            >
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors z-10" />
-              <div 
-                className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
-                style={{
-                  backgroundImage: `url(${catalogoCar})`
-                }}
-              />
-              <div className="relative z-20 h-full flex items-center justify-center">
-                <h3 className="text-3xl font-bold text-white">Catálogo</h3>
-              </div>
-            </Link>
+      <section className="bg-background">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 pt-10 sm:pt-16">
+          Explorar todos os carros ▸
+        </h2>
 
-            <Link 
-              to="/venda" 
-              className="relative h-64 rounded-lg overflow-hidden group cursor-pointer"
-            >
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors z-10" />
-              <div 
-                className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
-                style={{
-                  backgroundImage: `url(${vendaCar})`
-                }}
-              />
-              <div className="relative z-20 h-full flex items-center justify-center">
-                <h3 className="text-3xl font-bold text-white">Venda</h3>
-              </div>
-            </Link>
+        <div className="grid grid-cols-1 sm:grid-cols-3 w-full">
+          {/* Catálogo */}
+          <Link
+            to="/catalogo"
+            className="relative h-[300px] sm:h-[450px] overflow-hidden group cursor-pointer"
+          >
+            <img
+              src={catalogoCar}
+              alt="Catálogo"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors z-10" />
+            <div className="relative z-20 h-full flex items-center justify-center">
+              <h3 className="text-3xl sm:text-4xl font-bold text-white">
+                Catálogo
+              </h3>
+            </div>
+          </Link>
 
-            <Link 
-              to="/consignados" 
-              className="relative h-64 rounded-lg overflow-hidden group cursor-pointer"
-            >
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors z-10" />
-              <div 
-                className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
-                style={{
-                  backgroundImage: `url(${consignadoCar})`
-                }}
-              />
-              <div className="relative z-20 h-full flex items-center justify-center">
-                <h3 className="text-3xl font-bold text-white">Consignado</h3>
-              </div>
-            </Link>
-          </div>
+          {/* Venda */}
+          <Link
+            to="/venda"
+            className="relative h-[300px] sm:h-[450px] overflow-hidden group cursor-pointer"
+          >
+            <img
+              src={vendaCar}
+              alt="Venda"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors z-10" />
+            <div className="relative z-20 h-full flex items-center justify-center">
+              <h3 className="text-3xl sm:text-4xl font-bold text-white">Venda</h3>
+            </div>
+          </Link>
+
+          {/* Consignado */}
+          <Link
+            to="/consignados"
+            className="relative h-[300px] sm:h-[450px] overflow-hidden group cursor-pointer"
+          >
+            <img
+              src={consignadoCar}
+              alt="Consignado"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors z-10" />
+            <div className="relative z-20 h-full flex items-center justify-center">
+              <h3 className="text-3xl sm:text-4xl font-bold text-white">
+                Consignado
+              </h3>
+            </div>
+          </Link>
         </div>
       </section>
 
       {/* Featured Cars */}
-      <section className="py-16 bg-duo-black">
+      <section className="py-10 sm:py-16 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-white">Destaques</h2>
-          
-          <div className="relative">
-            <div className="relative h-[500px] rounded-lg overflow-hidden">
-              <div 
-                className="absolute inset-0 bg-cover bg-center"
-                style={{
-                  backgroundImage: `url(${destaquePorsche})`
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-              
-              <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                <p className="text-primary text-sm font-semibold mb-2">{featuredCars[0].brand}</p>
-                <h3 className="text-3xl font-bold mb-2">{featuredCars[0].model}</h3>
-                <p className="text-sm mb-4">{featuredCars[0].version}</p>
-                <div className="flex gap-8 text-sm">
-                  <span>{featuredCars[0].year}</span>
-                  <span>{featuredCars[0].km}</span>
-                  <span className="text-primary font-bold">{featuredCars[0].price}</span>
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">
+            Destaques
+          </h2>
+
+          <div className="relative w-full h-[400px] sm:h-[600px] overflow-hidden rounded-lg">
+            {/* Imagem de fundo */}
+            <img
+              src={featuredCars[currentSlide].image}
+              alt={featuredCars[currentSlide].model}
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+            />
+
+            {/* Conteúdo sobre a imagem */}
+            <div className="relative z-10 flex flex-col justify-between h-full">
+              {/* Texto superior esquerdo */}
+              <div className="absolute top-4 sm:top-8 left-4 sm:left-8 text-white font-bold text-lg sm:text-2xl md:text-3xl leading-tight">
+                <p>{featuredCars[currentSlide].brand}</p>
+                <p>{featuredCars[currentSlide].model}</p>
+                <p className="text-sm sm:text-lg md:text-xl">
+                  {featuredCars[currentSlide].version}
+                </p>
+                <div className="w-24 sm:w-40 h-1 bg-green-500 mt-2"></div>
+              </div>
+
+              {/* Informações inferiores */}
+              <div className="absolute bottom-6 sm:bottom-12 left-0 right-0 flex flex-col sm:flex-row justify-center gap-6 sm:gap-12 text-white text-sm sm:text-lg font-medium">
+                <div className="flex flex-col items-center">
+                  <span className="font-semibold">Ano</span>
+                  <span>{featuredCars[currentSlide].year}</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="font-semibold">Km</span>
+                  <span>{featuredCars[currentSlide].km}</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="font-semibold text-green-500">
+                    {featuredCars[currentSlide].price}
+                  </span>
                 </div>
               </div>
+
+              {/* Linha verde inferior */}
+              <div className="absolute bottom-4 sm:bottom-8 left-0 right-0 h-1 bg-green-500"></div>
+
+              {/* Botão lateral esquerdo */}
+              <button
+                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 rounded-full bg-black/40 hover:bg-black/60 transition text-white"
+                onClick={() =>
+                  setCurrentSlide(
+                    currentSlide === 0
+                      ? featuredCars.length - 1
+                      : currentSlide - 1
+                  )
+                }
+              >
+                <ChevronLeft size={24} className="sm:w-7 sm:h-7" />
+              </button>
+
+              {/* Botão lateral direito */}
+              <button
+                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 rounded-full bg-black/40 hover:bg-black/60 transition text-white"
+                onClick={() =>
+                  setCurrentSlide(
+                    currentSlide === featuredCars.length - 1
+                      ? 0
+                      : currentSlide + 1
+                  )
+                }
+              >
+                <ChevronRight size={24} className="sm:w-7 sm:h-7" />
+              </button>
             </div>
-            
-            <button 
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition-colors"
-              onClick={() => setCurrentSlide(Math.max(0, currentSlide - 1))}
-            >
-              <ChevronLeft size={24} />
-            </button>
-            <button 
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition-colors"
-              onClick={() => setCurrentSlide(Math.min(featuredCars.length - 1, currentSlide + 1))}
-            >
-              <ChevronRight size={24} />
-            </button>
           </div>
         </div>
       </section>
 
       {/* Map Section */}
-      <section className="py-16 bg-background">
+      <section className="py-10 sm:py-16 bg-background">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-primary mb-4">OBTER ENDEREÇO</h2>
-            <Button className="bg-primary hover:bg-primary/90">
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-4">
+              OBTER ENDEREÇO
+            </h2>
+            <Button className="bg-primary hover:bg-primary/90 text-sm sm:text-base">
               OBTER ENDEREÇO
             </Button>
           </div>
-          
-          <div className="w-full h-[400px] rounded-lg overflow-hidden border">
+
+          <div className="w-full h-[300px] sm:h-[400px] rounded-lg overflow-hidden border">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3839.7899445678!2d-48.0572066!3d-15.8141344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a33c895e6ab0b%3A0xc63066b59055fc3a!2sDUO%20MOTORS!5e0!3m2!1spt-BR!2sbr!4v1234567890"
               width="100%"
