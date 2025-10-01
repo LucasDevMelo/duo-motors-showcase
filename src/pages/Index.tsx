@@ -5,6 +5,7 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import heroImage from "@/assets/logo-duo-motors.png";
 
 const featuredCars = [
   {
@@ -31,7 +32,7 @@ const Index = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070')"
+            backgroundImage: `url(${heroImage})`
           }}
         />
         
