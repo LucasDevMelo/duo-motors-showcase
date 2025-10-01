@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import logoDuoMotors from "@/assets/logo-duo-motors.png";
 
 const Header = () => {
   const location = useLocation();
@@ -10,9 +11,11 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 bg-background z-50 border-b">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center">
-          <span className="text-xl font-bold">
-            DUO <span className="text-primary">MOTORS</span>
-          </span>
+          <img 
+            src={logoDuoMotors} 
+            alt="Duo Motors" 
+            className="h-12 w-auto object-contain"
+          />
         </Link>
         
         <nav className="hidden md:flex items-center gap-8">
