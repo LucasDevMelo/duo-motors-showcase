@@ -6,6 +6,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import heroImage from "@/assets/logo-duo-motors.png";
+import catalogoCar from "@/assets/catalogo-car.jpg";
+import vendaCar from "@/assets/venda-car.jpg";
+import consignadoCar from "@/assets/consignado-car.jpg";
+import destaquePorsche from "@/assets/destaque-porsche.jpg";
 
 const featuredCars = [
   {
@@ -62,7 +66,7 @@ const Index = () => {
               <div 
                 className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
                 style={{
-                  backgroundImage: "url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1483')"
+                  backgroundImage: `url(${catalogoCar})`
                 }}
               />
               <div className="relative z-20 h-full flex items-center justify-center">
@@ -78,7 +82,7 @@ const Index = () => {
               <div 
                 className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
                 style={{
-                  backgroundImage: "url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2070')"
+                  backgroundImage: `url(${vendaCar})`
                 }}
               />
               <div className="relative z-20 h-full flex items-center justify-center">
@@ -94,7 +98,7 @@ const Index = () => {
               <div 
                 className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
                 style={{
-                  backgroundImage: "url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=2064')"
+                  backgroundImage: `url(${consignadoCar})`
                 }}
               />
               <div className="relative z-20 h-full flex items-center justify-center">
@@ -115,7 +119,7 @@ const Index = () => {
               <div 
                 className="absolute inset-0 bg-cover bg-center"
                 style={{
-                  backgroundImage: "url('https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=2070')"
+                  backgroundImage: `url(${destaquePorsche})`
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
