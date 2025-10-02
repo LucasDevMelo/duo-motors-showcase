@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import { MapPin, Clock, Phone } from "lucide-react";
+import { MapPin, Clock } from "lucide-react";
 
 const Contact = () => {
   return (
@@ -72,7 +72,7 @@ const Contact = () => {
 
         <div className="w-full h-[400px] rounded-lg overflow-hidden border shadow relative">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!4v1727900000!6m8!1m7!1sAF1QipOkF3uPYJb1sBhkp-xWnc-7RGRlc8jHwJq5gpPO!2m2!1d-15.8142507!2d-48.0546248!3f90!4f0!5f0.7820865974627469"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3839.7899445678!2d-48.0572066!3d-15.8141344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a33c895e6ab0b%3A0xc63066b59055fc3a!2sDUO%20MOTORS!5e0!3m2!1spt-BR!2sbr!4v1234567890"
             width="100%"
             height="100%"
             style={{ border: 0 }}
@@ -82,15 +82,15 @@ const Contact = () => {
           />
 
           {/* Footer do mapa com botão */}
-          <div className="absolute bottom-0 left-0 w-full bg-white/80 backdrop-blur-sm flex justify-between items-center p-4">
+          <div className="absolute bottom-0 left-0 w-full bg-white/80 backdrop-blur-sm flex flex-col sm:flex-row justify-between items-center p-4 gap-3">
             <button className="text-primary font-bold text-lg">
               OBTER ENDEREÇO
             </button>
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-full sm:w-auto">
               <input
                 type="text"
                 placeholder="Insira seu endereço"
-                className="border border-gray-300 rounded px-3 py-2 text-sm w-48"
+                className="border border-gray-300 rounded px-3 py-2 text-sm w-full sm:w-48"
               />
               <button className="bg-primary text-white font-medium rounded px-4 py-2">
                 OBTER ENDEREÇO
