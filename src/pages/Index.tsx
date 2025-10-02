@@ -8,11 +8,16 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import catalogoCar from "@/assets/catalogo-car.png";
 import vendaCar from "@/assets/venda-car.png";
 import consignadoCar from "@/assets/consignado-car.png";
-import destaquePorsche from "@/assets/destaque-porsche.jpg";
-import destaqueBMW from "@/assets/destaque-bmw.jpg";
-import destaqueJaguar from "@/assets/destaque-jaguar.jpg";
 
-// Array de carros em destaque
+// --- ALTERAÇÃO AQUI ---
+// 1. Importe as imagens específicas dos modelos
+import porsche911Image from "@/assets/porsche911.png";
+import bmwZ4Image from "@/assets/bmwz4.png";
+import fTypeImage from "@/assets/ftype.png";
+
+
+// --- ALTERAÇÃO AQUI ---
+// 2. Atualize o array para usar as novas imagens importadas
 const featuredCars = [
   {
     brand: "PORSCHE",
@@ -21,16 +26,16 @@ const featuredCars = [
     year: "2020/2021",
     km: "11.859 km",
     price: "R$ 756.750,00",
-    image: destaquePorsche,
+    image: porsche911Image, // Usando a imagem do Porsche 911
   },
   {
     brand: "BMW",
-    model: "M4",
+    model: "M4", // Aviso: O dado é de um M4, a imagem é de um Z4
     version: "3.0 I6 Biturbo",
     year: "2019/2020",
     km: "25.000 km",
     price: "R$ 589.900,00",
-    image: destaqueBMW,
+    image: bmwZ4Image, // Usando a imagem do BMW Z4
   },
   {
     brand: "JAGUAR",
@@ -39,7 +44,7 @@ const featuredCars = [
     year: "2021/2022",
     km: "5.500 km",
     price: "R$ 659.000,00",
-    image: destaqueJaguar,
+    image: fTypeImage, // Usando a imagem do F-Type
   },
 ];
 
