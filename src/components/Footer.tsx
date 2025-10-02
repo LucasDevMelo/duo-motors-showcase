@@ -47,7 +47,7 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">CONTATO</h4>
             <p className="text-sm text-duo-gray-dark mb-2">
-              Telefone: +55 (61) 99608-1613
+              Telefone: +55 (61) 99608-1413
             </p>
             <a 
               href="https://www.instagram.com/_duomotors/" 

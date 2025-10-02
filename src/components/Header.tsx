@@ -57,7 +57,7 @@ const Header = () => {
           {/* Botão de Contato para Desktop */}
           <div className="hidden md:block">
             <Button asChild className="bg-primary hover:bg-primary/90">
-              <a href="https://wa.me/556196081613" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/556196081413" target="_blank" rel="noopener noreferrer">
                 Entrar em contato
               </a>
             </Button>
@@ -87,7 +87,7 @@ const Header = () => {
               </Link>
             ))}
             <Button asChild className="bg-primary hover:bg-primary/90 mt-4 text-lg">
-              <a href="https://wa.me/556196081613" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>
+              <a href="https://wa.me/556196081413" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>
                 Entrar em contato
               </a>
             </Button>

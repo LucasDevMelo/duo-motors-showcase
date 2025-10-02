@@ -48,7 +48,7 @@ const Consignados = () => {
               className="bg-primary hover:bg-primary/90"
               asChild
             >
-              <a href="https://wa.me/556196081613?text=Olá, tenho interesse em consignar meu veículo" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/556196081413?text=Olá, tenho interesse em consignar meu veículo" target="_blank" rel="noopener noreferrer">
                 Consignar meu veículo
               </a>
             </Button>

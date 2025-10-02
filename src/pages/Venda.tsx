@@ -72,7 +72,7 @@ const Venda = () => {
               className="bg-primary hover:bg-primary/90"
               asChild
             >
-              <a href="https://wa.me/556196081613?text=Olá, tenho interesse em vender meu veículo" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/556196081413?text=Olá, tenho interesse em vender meu veículo" target="_blank" rel="noopener noreferrer">
                 Vender meu carro agora
               </a>
             </Button>

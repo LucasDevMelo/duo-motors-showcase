@@ -56,7 +56,7 @@ const VehicleDetails = () => {
 
   const handleProposal = () => {
     const message = `Olá, tenho interesse no ${vehicleData.model}`;
-    window.open(`https://wa.me/556196081613?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/556196081413?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   return (
