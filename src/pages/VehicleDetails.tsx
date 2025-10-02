@@ -53,11 +53,19 @@ const VehicleDetails = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative overflow-hidden bg-duo-gray">
+      {/* Geometric Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-duo-gray-dark/20 transform -rotate-45 -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-duo-gray-dark/15 transform rotate-45 translate-x-1/3" />
+        <div className="absolute bottom-0 left-1/4 w-[700px] h-[700px] bg-duo-gray-dark/10 transform -rotate-12 translate-y-1/3" />
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-duo-gray-dark/20 transform rotate-12" />
+      </div>
+      
       <Header />
       <WhatsAppButton />
       
-      <div className="pt-24 pb-16">
+      <div className="pt-24 pb-16 relative z-10">
         <div className="container mx-auto px-4">
           <Link to="/catalogo" className="inline-flex items-center text-duo-gray-dark hover:text-primary transition-colors mb-8">
             ← Voltar para todos os carros
