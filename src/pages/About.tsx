@@ -3,6 +3,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
+// Importando imagens locais
+import sobreNosBanner from "@/assets/sobrenos-banner.png";
+import sobreNos1 from "@/assets/sobrenos-1.png";
+import sobreNos2 from "@/assets/sobrenos-2.png";
+
 const About = () => {
   return (
     <div className="min-h-screen">
@@ -15,7 +20,7 @@ const About = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1562911791-c7a97b729ec5?q=80&w=2070')"
+            backgroundImage: `url(${sobreNosBanner})`
           }}
         />
         <div className="relative z-20 h-full flex items-center justify-center">
@@ -43,7 +48,7 @@ const About = () => {
             <div 
               className="h-[400px] rounded-lg bg-cover bg-center"
               style={{
-                backgroundImage: "url('https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=2070')"
+                backgroundImage: `url(${sobreNos1})`
               }}
             />
             
@@ -87,7 +92,7 @@ const About = () => {
             <div 
               className="h-[400px] rounded-lg bg-cover bg-center order-1 md:order-2"
               style={{
-                backgroundImage: "url('https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=2070')"
+                backgroundImage: `url(${sobreNos2})`
               }}
             />
           </div>

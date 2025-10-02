@@ -89,7 +89,7 @@ const Index = () => {
             size="lg"
             className="bg-primary hover:bg-primary/90 w-fit mx-auto sm:mx-0"
           >
-            <Link to="/catalogo">Ver o catálogo completo +</Link>
+            <Link to="/catalogo">Ver o catálogo completo </Link>
           </Button>
         </div>
       </section>
@@ -162,7 +162,7 @@ const Index = () => {
             Destaques
           </h2>
 
-          <div className="relative w-full h-[450px] sm:h-[550px] overflow-hidden rounded-none">
+          <div className="relative w-full h-[600px] sm:h-[750px] overflow-hidden rounded-none">
             {/* Imagem de fundo */}
             <img
               src={featuredCars[currentSlide].image}
@@ -209,7 +209,7 @@ const Index = () => {
                 </div>
                 {/* Linha verde sublinhando as informações */}
                 <div className="w-full h-1 bg-green-500"></div>
-                
+
                 {/* Botões de navegação */}
                 <div className="flex gap-3 mt-4 justify-end">
                   <button

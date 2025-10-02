@@ -29,6 +29,12 @@ const Header = () => {
             Catálogo
           </Link>
           <Link 
+            to="/contato" 
+            className={`transition-colors ${isActive("/venda") ? "text-primary font-medium" : "text-foreground hover:text-primary"}`}
+          >
+            Contato
+          </Link>
+          <Link 
             to="/sobre" 
             className={`transition-colors ${isActive("/sobre") ? "text-primary font-medium" : "text-foreground hover:text-primary"}`}
           >
