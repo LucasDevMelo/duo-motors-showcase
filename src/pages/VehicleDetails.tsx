@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { Button } from "@/components/ui/button";
+import vehicleBg from "@/assets/vehicle-bg.png";
 
 const vehicleData = {
   brand: "PORSCHE",
@@ -53,14 +54,12 @@ const VehicleDetails = () => {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-duo-gray">
-      {/* Geometric Background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-duo-gray-dark/20 transform -rotate-45 -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-duo-gray-dark/15 transform rotate-45 translate-x-1/3" />
-        <div className="absolute bottom-0 left-1/4 w-[700px] h-[700px] bg-duo-gray-dark/10 transform -rotate-12 translate-y-1/3" />
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-duo-gray-dark/20 transform rotate-12" />
-      </div>
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 pointer-events-none bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${vehicleBg})` }}
+      />
       
       <Header />
       <WhatsAppButton />
