@@ -167,7 +167,7 @@ const Index = () => {
             Destaques
           </h2>
 
-          <div className="relative w-full h-[600px] sm:h-[750px] overflow-hidden rounded-none">
+          <div className="relative w-full aspect-video sm:aspect-auto sm:h-[750px] overflow-hidden rounded-none">
             {/* Imagem de fundo */}
             <img
               src={featuredCars[currentSlide].image}
@@ -191,7 +191,6 @@ const Index = () => {
                 <p className="text-sm sm:text-base md:text-lg uppercase mt-1 tracking-wide leading-tight">
                   {featuredCars[currentSlide].version}
                 </p>
-                {/* Linha verde sublinhando */}
                 <div className="w-32 sm:w-48 md:w-64 h-1 bg-green-500 mt-2"></div>
               </div>
 
@@ -212,41 +211,71 @@ const Index = () => {
                     </div>
                   </div>
                 </div>
-                {/* Linha verde sublinhando as informações */}
                 <div className="w-full h-1 bg-green-500"></div>
-
-                {/* Botões de navegação */}
-                <div className="flex gap-3 mt-4 justify-end">
-                  <button
-                    className="p-2 sm:p-3 rounded-sm bg-black/60 hover:bg-black/80 transition text-white"
-                    onClick={() =>
-                      setCurrentSlide(
-                        currentSlide === 0
-                          ? featuredCars.length - 1
-                          : currentSlide - 1
-                      )
-                    }
-                  >
-                    <ChevronLeft size={20} className="sm:w-6 sm:h-6" />
-                  </button>
-
-                  <button
-                    className="p-2 sm:p-3 rounded-sm bg-black/60 hover:bg-black/80 transition text-white"
-                    onClick={() =>
-                      setCurrentSlide(
-                        currentSlide === featuredCars.length - 1
-                          ? 0
-                          : currentSlide + 1
-                      )
-                    }
-                  >
-                    <ChevronRight size={20} className="sm:w-6 sm:h-6" />
-                  </button>
-                </div>
               </div>
             </div>
+
+            {/* --- ALTERAÇÃO AQUI (Container das setas em desktop/tablet) --- */}
+            {/* Esconde este container em telas pequenas (hidden), mas mostra em sm e maiores */}
+            <div className="hidden sm:flex absolute inset-0 z-30 items-center justify-between px-4 pointer-events-none">
+              <button
+                className="p-2 sm:p-3 rounded-sm bg-black/60 hover:bg-black/80 transition text-white pointer-events-auto"
+                onClick={() =>
+                  setCurrentSlide(
+                    currentSlide === 0
+                      ? featuredCars.length - 1
+                      : currentSlide - 1
+                  )
+                }
+              >
+                <ChevronLeft size={20} className="sm:w-6 sm:h-6" />
+              </button>
+
+              <button
+                className="p-2 sm:p-3 rounded-sm bg-black/60 hover:bg-black/80 transition text-white pointer-events-auto"
+                onClick={() =>
+                  setCurrentSlide(
+                    currentSlide === featuredCars.length - 1
+                      ? 0
+                      : currentSlide + 1
+                  )
+                }
+              >
+                <ChevronRight size={20} className="sm:w-6 sm:h-6" />
+              </button>
+            </div>
+          </div> {/* Fim do div de destaque */}
+
+          {/* --- NOVO CONTAINER AQUI (Container das setas em celular) --- */}
+          {/* Mostra este container APENAS em telas pequenas (flex), e esconde em sm e maiores */}
+          <div className="flex sm:hidden justify-center gap-4 mt-6">
+            <button
+              className="p-3 rounded-sm bg-black/60 hover:bg-black/80 transition text-white"
+              onClick={() =>
+                setCurrentSlide(
+                  currentSlide === 0
+                    ? featuredCars.length - 1
+                    : currentSlide - 1
+                )
+              }
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button
+              className="p-3 rounded-sm bg-black/60 hover:bg-black/80 transition text-white"
+              onClick={() =>
+                setCurrentSlide(
+                  currentSlide === featuredCars.length - 1
+                    ? 0
+                    : currentSlide + 1
+                )
+              }
+            >
+              <ChevronRight size={24} />
+            </button>
           </div>
-        </div>
+
+        </div> {/* Fim do container mx-auto */}
       </section>
 
       {/* Map Section */}
