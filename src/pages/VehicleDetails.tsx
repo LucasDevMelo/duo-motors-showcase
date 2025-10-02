@@ -1,11 +1,18 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { Button } from "@/components/ui/button";
 import vehicleBg from "@/assets/vehicle-bg.png";
+
+// Imagens locais
+import porsche1 from "@/assets/porsche1.png";
+import porsche2 from "@/assets/porsche2.png";
+import porsche3 from "@/assets/porsche3.png";
+import porsche4 from "@/assets/porsche4.png";
 
 const vehicleData = {
   brand: "PORSCHE",
@@ -13,11 +20,7 @@ const vehicleData = {
   year: "2024",
   transmission: "Automático",
   price: "R$ 750.000",
-  images: [
-    "https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=2064",
-    "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=2070",
-    "https://images.unsplash.com/photo-1611859266238-4b98091d9d9b?q=80&w=2070"
-  ],
+  images: [porsche1, porsche2, porsche3, porsche4],
   specs: {
     fuel: "Gasolina",
     transmission: "Automática",
@@ -39,12 +42,15 @@ Veículo com procedência comprovada, manutenções em dia e documentação regu
 const VehicleDetails = () => {
   const { id } = useParams();
   const [currentImage, setCurrentImage] = useState(0);
+  const [direction, setDirection] = useState(0);
 
   const nextImage = () => {
+    setDirection(1);
     setCurrentImage((prev) => (prev + 1) % vehicleData.images.length);
   };
 
   const prevImage = () => {
+    setDirection(-1);
     setCurrentImage((prev) => (prev - 1 + vehicleData.images.length) % vehicleData.images.length);
   };
 
@@ -76,20 +82,28 @@ const VehicleDetails = () => {
               {/* Imagens */}
               <div>
                 <div className="relative aspect-video mb-4 rounded-lg overflow-hidden">
-                  <img 
-                    src={vehicleData.images[currentImage]} 
-                    alt={vehicleData.model}
-                    className="w-full h-full object-cover"
-                  />
+                  <AnimatePresence initial={false} custom={direction}>
+                    <motion.img
+                      key={currentImage}
+                      src={vehicleData.images[currentImage]}
+                      alt={vehicleData.model}
+                      className="w-full h-full object-cover absolute inset-0"
+                      custom={direction}
+                      initial={{ opacity: 0, x: direction > 0 ? 100 : -100 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: direction > 0 ? -100 : 100 }}
+                      transition={{ duration: 0.5 }}
+                    />
+                  </AnimatePresence>
                   <button 
                     onClick={prevImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black p-2 rounded-full transition-colors"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black p-2 rounded-full transition-colors z-10"
                   >
                     <ChevronLeft size={24} />
                   </button>
                   <button 
                     onClick={nextImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black p-2 rounded-full transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-black p-2 rounded-full transition-colors z-10"
                   >
                     <ChevronRight size={24} />
                   </button>
@@ -99,7 +113,10 @@ const VehicleDetails = () => {
                   {vehicleData.images.map((image, index) => (
                     <button
                       key={index}
-                      onClick={() => setCurrentImage(index)}
+                      onClick={() => {
+                        setDirection(index > currentImage ? 1 : -1);
+                        setCurrentImage(index);
+                      }}
                       className={`flex-shrink-0 w-24 h-16 rounded overflow-hidden border-2 transition-colors ${
                         currentImage === index ? 'border-primary' : 'border-transparent'
                       }`}
