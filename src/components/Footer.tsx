@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Instagram } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -45,6 +46,15 @@ const Footer = () => {
             <p className="text-sm text-duo-gray-dark mb-2">
               Telefone: +55 (61) 99608-1613
             </p>
+            <a 
+              href="https://www.instagram.com/_duomotors/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-sm text-duo-gray-dark hover:text-primary transition-colors mt-3"
+            >
+              <Instagram className="w-4 h-4" />
+              Instagram
+            </a>
           </div>
         </div>
       </div>
