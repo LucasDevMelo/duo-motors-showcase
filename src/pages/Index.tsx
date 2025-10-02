@@ -179,34 +179,40 @@ const Index = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/60 z-10" />
 
             {/* Conteúdo sobre a imagem */}
-            <div className="relative z-20 flex flex-col justify-between h-full p-6 sm:p-10">
+            {/* --- ALTERAÇÃO AQUI (Padding) --- */}
+            <div className="relative z-20 flex flex-col justify-between h-full p-4 sm:p-10">
               {/* Texto superior esquerdo */}
               <div className="text-white font-bold">
-                <p className="text-2xl sm:text-3xl md:text-4xl uppercase tracking-wide leading-tight">
+                {/* --- ALTERAÇÃO AQUI (Marca) --- */}
+                <p className="text-xl sm:text-3xl md:text-4xl uppercase tracking-wide leading-tight">
                   {featuredCars[currentSlide].brand}
                 </p>
-                <p className="text-2xl sm:text-3xl md:text-4xl uppercase tracking-wide leading-tight">
+                {/* --- ALTERAÇÃO AQUI (Modelo) --- */}
+                <p className="text-xl sm:text-3xl md:text-4xl uppercase tracking-wide leading-tight">
                   {featuredCars[currentSlide].model}
                 </p>
-                <p className="text-sm sm:text-base md:text-lg uppercase mt-1 tracking-wide leading-tight">
+                {/* --- ALTERAÇÃO AQUI (Versão) --- */}
+                <p className="text-xs sm:text-base md:text-lg uppercase mt-1 tracking-wide leading-tight">
                   {featuredCars[currentSlide].version}
                 </p>
-                <div className="w-32 sm:w-48 md:w-64 h-1 bg-green-500 mt-2"></div>
+                <div className="w-24 sm:w-48 md:w-64 h-1 bg-green-500 mt-2"></div>
               </div>
 
               {/* Informações inferiores direita */}
               <div className="self-end">
-                <div className="flex gap-6 sm:gap-10 md:gap-12 text-white text-sm sm:text-base font-medium mb-2">
+                {/* --- ALTERAÇÃO AQUI (Ano/Km) --- */}
+                <div className="flex gap-4 sm:gap-10 md:gap-12 text-white text-xs sm:text-base font-medium mb-2">
                   <div className="text-right">
-                    <div className="text-xs opacity-80 mb-1">Ano</div>
+                    <div className="opacity-80 mb-1">Ano</div>
                     <div className="font-bold">{featuredCars[currentSlide].year}</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-xs opacity-80 mb-1">Km</div>
+                    <div className="opacity-80 mb-1">Km</div>
                     <div className="font-bold">{featuredCars[currentSlide].km}</div>
                   </div>
                   <div className="text-right">
-                    <div className="font-bold text-base sm:text-lg md:text-xl">
+                    {/* --- ALTERAÇÃO AQUI (Preço) --- */}
+                    <div className="font-bold text-sm sm:text-lg md:text-xl">
                       {featuredCars[currentSlide].price}
                     </div>
                   </div>
@@ -215,8 +221,7 @@ const Index = () => {
               </div>
             </div>
 
-            {/* --- ALTERAÇÃO AQUI (Container das setas em desktop/tablet) --- */}
-            {/* Esconde este container em telas pequenas (hidden), mas mostra em sm e maiores */}
+            {/* Container das setas em desktop/tablet (sem alterações) */}
             <div className="hidden sm:flex absolute inset-0 z-30 items-center justify-between px-4 pointer-events-none">
               <button
                 className="p-2 sm:p-3 rounded-sm bg-black/60 hover:bg-black/80 transition text-white pointer-events-auto"
@@ -230,7 +235,6 @@ const Index = () => {
               >
                 <ChevronLeft size={20} className="sm:w-6 sm:h-6" />
               </button>
-
               <button
                 className="p-2 sm:p-3 rounded-sm bg-black/60 hover:bg-black/80 transition text-white pointer-events-auto"
                 onClick={() =>
@@ -244,10 +248,9 @@ const Index = () => {
                 <ChevronRight size={20} className="sm:w-6 sm:h-6" />
               </button>
             </div>
-          </div> {/* Fim do div de destaque */}
+          </div>
 
-          {/* --- NOVO CONTAINER AQUI (Container das setas em celular) --- */}
-          {/* Mostra este container APENAS em telas pequenas (flex), e esconde em sm e maiores */}
+          {/* Container das setas em celular (sem alterações) */}
           <div className="flex sm:hidden justify-center gap-4 mt-6">
             <button
               className="p-3 rounded-sm bg-black/60 hover:bg-black/80 transition text-white"
@@ -274,8 +277,7 @@ const Index = () => {
               <ChevronRight size={24} />
             </button>
           </div>
-
-        </div> {/* Fim do container mx-auto */}
+        </div>
       </section>
 
       {/* Map Section */}
