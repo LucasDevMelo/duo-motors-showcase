@@ -156,7 +156,7 @@ const Index = () => {
       </section>
 
       {/* Featured Cars */}
-      <section className="py-10 sm:py-16 bg-background">
+      <section className="pt-16 sm:pt-24 pb-10 sm:pb-16 bg-background">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12">
             Destaques
