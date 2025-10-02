@@ -158,11 +158,11 @@ const Index = () => {
       {/* Featured Cars */}
       <section className="py-10 sm:py-16 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12">
             Destaques
           </h2>
 
-          <div className="relative w-full h-[400px] sm:h-[600px] overflow-hidden rounded-lg">
+          <div className="relative w-full h-[450px] sm:h-[550px] overflow-hidden rounded-none">
             {/* Imagem de fundo */}
             <img
               src={featuredCars[currentSlide].image}
@@ -170,65 +170,70 @@ const Index = () => {
               className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
             />
 
+            {/* Overlay escuro sutil */}
+            <div className="absolute inset-0 bg-black/30 z-10" />
+
             {/* Conteúdo sobre a imagem */}
-            <div className="relative z-10 flex flex-col justify-between h-full">
+            <div className="relative z-20 flex flex-col justify-between h-full">
               {/* Texto superior esquerdo */}
-              <div className="absolute top-4 sm:top-8 left-4 sm:left-8 text-white font-bold text-lg sm:text-2xl md:text-3xl leading-tight">
-                <p>{featuredCars[currentSlide].brand}</p>
-                <p>{featuredCars[currentSlide].model}</p>
-                <p className="text-sm sm:text-lg md:text-xl">
+              <div className="absolute top-6 sm:top-10 left-4 sm:left-8 text-white font-bold">
+                <p className="text-2xl sm:text-3xl md:text-4xl uppercase tracking-wide">
+                  {featuredCars[currentSlide].brand}
+                </p>
+                <p className="text-2xl sm:text-3xl md:text-4xl uppercase tracking-wide">
+                  {featuredCars[currentSlide].model}
+                </p>
+                <p className="text-sm sm:text-base md:text-lg uppercase mt-1 tracking-wide">
                   {featuredCars[currentSlide].version}
                 </p>
-                <div className="w-24 sm:w-40 h-1 bg-green-500 mt-2"></div>
+                <div className="w-32 sm:w-48 h-1 bg-green-500 mt-3"></div>
               </div>
 
-              {/* Informações inferiores */}
-              <div className="absolute bottom-6 sm:bottom-12 left-0 right-0 flex flex-col sm:flex-row justify-center gap-6 sm:gap-12 text-white text-sm sm:text-lg font-medium">
-                <div className="flex flex-col items-center">
-                  <span className="font-semibold">Ano</span>
-                  <span>{featuredCars[currentSlide].year}</span>
+              {/* Informações inferiores direita */}
+              <div className="absolute bottom-12 sm:bottom-16 right-4 sm:right-8 flex gap-8 sm:gap-12 text-white text-sm sm:text-base font-medium">
+                <div className="flex flex-col items-start">
+                  <span className="font-semibold text-xs sm:text-sm mb-1">Ano</span>
+                  <span className="font-bold">{featuredCars[currentSlide].year}</span>
                 </div>
-                <div className="flex flex-col items-center">
-                  <span className="font-semibold">Km</span>
-                  <span>{featuredCars[currentSlide].km}</span>
+                <div className="flex flex-col items-start">
+                  <span className="font-semibold text-xs sm:text-sm mb-1">Km</span>
+                  <span className="font-bold">{featuredCars[currentSlide].km}</span>
                 </div>
-                <div className="flex flex-col items-center">
-                  <span className="font-semibold text-green-500">
+                <div className="flex flex-col items-start">
+                  <span className="font-bold text-base sm:text-lg bg-green-500 px-3 py-1 rounded">
                     {featuredCars[currentSlide].price}
                   </span>
                 </div>
               </div>
 
-              {/* Linha verde inferior */}
-              <div className="absolute bottom-4 sm:bottom-8 left-0 right-0 h-1 bg-green-500"></div>
+              {/* Botões de navegação na parte inferior */}
+              <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-8 flex gap-3">
+                <button
+                  className="p-2 sm:p-3 rounded-sm bg-black/60 hover:bg-black/80 transition text-white"
+                  onClick={() =>
+                    setCurrentSlide(
+                      currentSlide === 0
+                        ? featuredCars.length - 1
+                        : currentSlide - 1
+                    )
+                  }
+                >
+                  <ChevronLeft size={20} className="sm:w-6 sm:h-6" />
+                </button>
 
-              {/* Botão lateral esquerdo */}
-              <button
-                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 rounded-full bg-black/40 hover:bg-black/60 transition text-white"
-                onClick={() =>
-                  setCurrentSlide(
-                    currentSlide === 0
-                      ? featuredCars.length - 1
-                      : currentSlide - 1
-                  )
-                }
-              >
-                <ChevronLeft size={24} className="sm:w-7 sm:h-7" />
-              </button>
-
-              {/* Botão lateral direito */}
-              <button
-                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 rounded-full bg-black/40 hover:bg-black/60 transition text-white"
-                onClick={() =>
-                  setCurrentSlide(
-                    currentSlide === featuredCars.length - 1
-                      ? 0
-                      : currentSlide + 1
-                  )
-                }
-              >
-                <ChevronRight size={24} className="sm:w-7 sm:h-7" />
-              </button>
+                <button
+                  className="p-2 sm:p-3 rounded-sm bg-black/60 hover:bg-black/80 transition text-white"
+                  onClick={() =>
+                    setCurrentSlide(
+                      currentSlide === featuredCars.length - 1
+                        ? 0
+                        : currentSlide + 1
+                    )
+                  }
+                >
+                  <ChevronRight size={20} className="sm:w-6 sm:h-6" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
