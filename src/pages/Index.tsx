@@ -171,68 +171,73 @@ const Index = () => {
             />
 
             {/* Overlay escuro sutil */}
-            <div className="absolute inset-0 bg-black/30 z-10" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/60 z-10" />
 
             {/* Conteúdo sobre a imagem */}
-            <div className="relative z-20 flex flex-col justify-between h-full">
+            <div className="relative z-20 flex flex-col justify-between h-full p-6 sm:p-10">
               {/* Texto superior esquerdo */}
-              <div className="absolute top-6 sm:top-10 left-4 sm:left-8 text-white font-bold">
-                <p className="text-2xl sm:text-3xl md:text-4xl uppercase tracking-wide">
+              <div className="text-white font-bold">
+                <p className="text-2xl sm:text-3xl md:text-4xl uppercase tracking-wide leading-tight">
                   {featuredCars[currentSlide].brand}
                 </p>
-                <p className="text-2xl sm:text-3xl md:text-4xl uppercase tracking-wide">
+                <p className="text-2xl sm:text-3xl md:text-4xl uppercase tracking-wide leading-tight">
                   {featuredCars[currentSlide].model}
                 </p>
-                <p className="text-sm sm:text-base md:text-lg uppercase mt-1 tracking-wide">
+                <p className="text-sm sm:text-base md:text-lg uppercase mt-1 tracking-wide leading-tight">
                   {featuredCars[currentSlide].version}
                 </p>
-                <div className="w-32 sm:w-48 h-1 bg-green-500 mt-3"></div>
+                {/* Linha verde sublinhando */}
+                <div className="w-32 sm:w-48 md:w-64 h-1 bg-green-500 mt-2"></div>
               </div>
 
               {/* Informações inferiores direita */}
-              <div className="absolute bottom-12 sm:bottom-16 right-4 sm:right-8 flex gap-8 sm:gap-12 text-white text-sm sm:text-base font-medium">
-                <div className="flex flex-col items-start">
-                  <span className="font-semibold text-xs sm:text-sm mb-1">Ano</span>
-                  <span className="font-bold">{featuredCars[currentSlide].year}</span>
+              <div className="self-end">
+                <div className="flex gap-6 sm:gap-10 md:gap-12 text-white text-sm sm:text-base font-medium mb-2">
+                  <div className="text-right">
+                    <div className="text-xs opacity-80 mb-1">Ano</div>
+                    <div className="font-bold">{featuredCars[currentSlide].year}</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xs opacity-80 mb-1">Km</div>
+                    <div className="font-bold">{featuredCars[currentSlide].km}</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold text-base sm:text-lg md:text-xl">
+                      {featuredCars[currentSlide].price}
+                    </div>
+                  </div>
                 </div>
-                <div className="flex flex-col items-start">
-                  <span className="font-semibold text-xs sm:text-sm mb-1">Km</span>
-                  <span className="font-bold">{featuredCars[currentSlide].km}</span>
-                </div>
-                <div className="flex flex-col items-start">
-                  <span className="font-bold text-base sm:text-lg bg-green-500 px-3 py-1 rounded">
-                    {featuredCars[currentSlide].price}
-                  </span>
-                </div>
-              </div>
+                {/* Linha verde sublinhando as informações */}
+                <div className="w-full h-1 bg-green-500"></div>
+                
+                {/* Botões de navegação */}
+                <div className="flex gap-3 mt-4 justify-end">
+                  <button
+                    className="p-2 sm:p-3 rounded-sm bg-black/60 hover:bg-black/80 transition text-white"
+                    onClick={() =>
+                      setCurrentSlide(
+                        currentSlide === 0
+                          ? featuredCars.length - 1
+                          : currentSlide - 1
+                      )
+                    }
+                  >
+                    <ChevronLeft size={20} className="sm:w-6 sm:h-6" />
+                  </button>
 
-              {/* Botões de navegação na parte inferior */}
-              <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-8 flex gap-3">
-                <button
-                  className="p-2 sm:p-3 rounded-sm bg-black/60 hover:bg-black/80 transition text-white"
-                  onClick={() =>
-                    setCurrentSlide(
-                      currentSlide === 0
-                        ? featuredCars.length - 1
-                        : currentSlide - 1
-                    )
-                  }
-                >
-                  <ChevronLeft size={20} className="sm:w-6 sm:h-6" />
-                </button>
-
-                <button
-                  className="p-2 sm:p-3 rounded-sm bg-black/60 hover:bg-black/80 transition text-white"
-                  onClick={() =>
-                    setCurrentSlide(
-                      currentSlide === featuredCars.length - 1
-                        ? 0
-                        : currentSlide + 1
-                    )
-                  }
-                >
-                  <ChevronRight size={20} className="sm:w-6 sm:h-6" />
-                </button>
+                  <button
+                    className="p-2 sm:p-3 rounded-sm bg-black/60 hover:bg-black/80 transition text-white"
+                    onClick={() =>
+                      setCurrentSlide(
+                        currentSlide === featuredCars.length - 1
+                          ? 0
+                          : currentSlide + 1
+                      )
+                    }
+                  >
+                    <ChevronRight size={20} className="sm:w-6 sm:h-6" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
