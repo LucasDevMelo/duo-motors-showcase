@@ -12,6 +12,9 @@ import Venda from "./pages/Venda";
 import NotFound from "./pages/NotFound";
 import Contact from "./pages/Contact";
 
+// --- ADICIONE A IMPORTAÇÃO AQUI ---
+import ScrollToTop from "./components/ScroolTop";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -20,6 +23,9 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        {/* --- ADICIONE O COMPONENTE AQUI --- */}
+        <ScrollToTop />
+        
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/sobre" element={<About />} />
