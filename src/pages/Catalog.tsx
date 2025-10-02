@@ -6,6 +6,14 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
+// 1. Importe as imagens da sua pasta assets
+import audiTTImage from "@/assets/audiTTroadster.png";
+import bmwZ4Image from "@/assets/bmwz4.png";
+import fTypeImage from "@/assets/ftype.png";
+import porscheCayenneImage from "@/assets/cayenne.png";
+import porscheBoxsterImage from "@/assets/porsche1.png"; // Usando porsche1.png para o Boxster
+import porsche911Image from "@/assets/porsche911.png";
+
 const vehicles = [
   {
     id: "1",
@@ -15,7 +23,8 @@ const vehicles = [
     km: "27.000",
     transmission: "Automático",
     fuel: "Gasolina",
-    image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?q=80&w=2070"
+    // 2. Use a variável da imagem importada aqui
+    image: audiTTImage 
   },
   {
     id: "2",
@@ -25,7 +34,7 @@ const vehicles = [
     km: "15.000",
     transmission: "Automático",
     fuel: "Gasolina",
-    image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=2070"
+    image: bmwZ4Image
   },
   {
     id: "3",
@@ -35,7 +44,7 @@ const vehicles = [
     km: "8.000",
     transmission: "Automático",
     fuel: "Gasolina",
-    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2070"
+    image: fTypeImage
   },
   {
     id: "4",
@@ -45,7 +54,7 @@ const vehicles = [
     km: "5.000",
     transmission: "Automático",
     fuel: "Gasolina",
-    image: "https://images.unsplash.com/photo-1611859266238-4b98091d9d9b?q=80&w=2070"
+    image: porscheCayenneImage
   },
   {
     id: "5",
@@ -55,7 +64,7 @@ const vehicles = [
     km: "2.000",
     transmission: "Automático",
     fuel: "Gasolina",
-    image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=2064"
+    image: porscheBoxsterImage
   },
   {
     id: "6",
@@ -65,7 +74,7 @@ const vehicles = [
     km: "11.859",
     transmission: "Automático",
     fuel: "Gasolina",
-    image: "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=2070"
+    image: porsche911Image
   }
 ];
 
@@ -159,7 +168,8 @@ const Catalog = () => {
                 </div>
                 <div className="p-4">
                   <h3 className="font-bold text-lg mb-2">{vehicle.name}</h3>
-                  <p className={`font-bold mb-4 ${vehicle.price.includes("R$") ? "text-primary" : "text-primary"}`}>
+                  {/* Pequena correção no className para remover lógica redundante */}
+                  <p className="font-bold mb-4 text-primary">
                     {vehicle.price}
                   </p>
                   <div className="grid grid-cols-2 gap-2 text-sm text-duo-gray-dark">
