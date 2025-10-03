@@ -1,21 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-// --- Dependências Simuladas para o Componente Header ---
+// --- Dependências Simuladas ---
 
 // Simulação do react-router-dom
 const Link = ({ to, children, ...props }) => <a href={to} {...props}>{children}</a>;
-const useLocation = () => ({ pathname: '/consignados' });
-
-// Simulação do componente Button de shadcn/ui (CORRIGIDO)
-const Button = ({ children, asChild = false, ...props }) => {
-  if (asChild && React.isValidElement(children)) {
-    // Clona o elemento filho (<a>), mesclando as props.
-    // A asserção de tipo 'as Record<string, unknown>' resolve o erro de espalhamento (spread) do TypeScript.
-    const mergedProps = { ...(children.props as Record<string, unknown>), ...props };
-    return React.cloneElement(children, mergedProps);
-  }
-  return <button {...props}>{children}</button>;
-};
+const useLocation = () => ({ pathname: '/consignados' }); 
 
 // Simulação dos ícones de lucide-react
 const Menu = (props) => (
@@ -32,7 +21,7 @@ const X = (props) => (
   </svg>
 );
 
-// --- O seu Componente Header.tsx Integrado ---
+// --- Componente Header Integrado (Refatorado para Simplicidade) ---
 
 const Header = () => {
   const location = useLocation();
@@ -83,17 +72,24 @@ const Header = () => {
           </nav>
 
           <div className="hidden md:block">
-            <Button asChild className="bg-lime-500 hover:bg-lime-600 text-white px-4 py-2 rounded">
-              <a href="https://wa.me/556196081413" target="_blank" rel="noopener noreferrer">
-                Entrar em contato
-              </a>
-            </Button>
+            <a 
+              href="https://wa.me/556196081413" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-lime-500 hover:bg-lime-600 text-white font-semibold px-4 py-2 rounded-md transition-colors"
+            >
+              Entrar em contato
+            </a>
           </div>
 
           <div className="md:hidden">
-            <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <button 
+              onClick={() => setIsMenuOpen(!isMenuOpen)} 
+              className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400"
+              aria-label="Abrir menu"
+            >
               {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
-            </Button>
+            </button>
           </div>
         </div>
       </header>
@@ -111,11 +107,15 @@ const Header = () => {
                 {link.label}
               </Link>
             ))}
-            <Button asChild className="bg-lime-500 hover:bg-lime-600 mt-4 text-lg text-white px-4 py-2 rounded">
-              <a href="https://wa.me/556196081413" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>
-                Entrar em contato
-              </a>
-            </Button>
+            <a 
+              href="https://wa.me/556196081413" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              onClick={() => setIsMenuOpen(false)}
+              className="bg-lime-500 hover:bg-lime-600 mt-4 text-lg text-white font-semibold px-6 py-3 rounded-md transition-colors"
+            >
+              Entrar em contato
+            </a>
           </nav>
         </div>
       )}
@@ -126,8 +126,34 @@ const Header = () => {
 // --- Componentes Placeholder (Footer, WhatsAppButton) ---
 
 const Footer = () => (
-  <footer className="bg-gray-800 text-white p-8 text-center">
-    <p>&copy; 2023 Duo Motors. Todos os direitos reservados.</p>
+  <footer className="bg-gray-100 text-gray-600 text-sm">
+    <div className="container mx-auto px-4 py-8">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="flex items-center gap-2">
+            <div className="bg-black rounded-full p-2 w-10 h-10 flex items-center justify-center">
+                <span className="text-white font-bold text-xs">DUO</span>
+            </div>
+            <span className="font-bold text-gray-800">DUO MOTORS</span>
+        </div>
+        
+        <a href="https://www.instagram.com/_duomotors/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-lime-500">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            <span>@_duomotors</span>
+        </a>
+
+        <p className="text-center md:text-left max-w-xs">
+          C.A Samambaia Rua 01, St. Hab. Vicente Pires lote 01, Colônia Agrícola Samambaia-A, Brasília, - DF, 72002-495
+        </p>
+        
+        <p>
+          Telefone: +55 61 99608-1413
+        </p>
+      </div>
+      
+      <div className="border-t border-gray-300 mt-8 pt-6 text-center md:text-left">
+        <p>&copy; 2025 Duo Motors. Todos os direitos reservados</p>
+      </div>
+    </div>
   </footer>
 );
 
@@ -139,8 +165,8 @@ const WhatsAppButton = () => (
         className="fixed bottom-6 right-6 bg-green-500 text-white rounded-full p-4 shadow-lg hover:bg-green-600 transition-transform hover:scale-110 z-50"
         aria-label="Fale conosco no WhatsApp"
     >
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8.4 8.4z"></path>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M16.75 13.96c.25.13.41.2.46.3.05.1.03.48-.18.69a1.49 1.49 0 0 1-1.03.42 2.94 2.94 0 0 1-1.76-.64 8.29 8.29 0 0 1-2.9-2.91c-.39-.63-.79-1.32-.72-1.99.08-.67.48-1.09.65-1.26.17-.17.35-.21.49-.21.15 0 .29.01.41.03.15.02.26.04.39.29.13.25.46.8.51 1.05.05.25.08.55-.02.82-.1-.27-.22-.4-.38-.54a.49.49 0 0 0-.44-.19c-.14,0-.28.04-.39.11-.11.07-.18.15-.24.24-.06.09-.12.19-.17.29s-.07.2-.07.3c0 .1.01.2.03.3.02.1.04.19.07.28.03.09.06.17.1.25.29.47.66.91 1.09 1.29s.92.73 1.41 1.02c.16.1.3.18.47.25.17.07.33.12.5.15.17.03.34.03.5.02.16-.01.32-.05.47-.13.15-.08.28-.19.4-.33.09-.1.17-.22.23-.34.06-.12.1-.25.13-.39a.57.57 0 0 1 .03-.26c.02-.12.03-.24.03-.37 0-.14-.02-.28-.05-.42a1.8 1.8 0 0 0-.25-.41c-.08-.12-.18-.21-.29-.29-.11-.08-.24-.13-.38-.15s-.28,0-.42.05c-.14.05-.28.13-.41.23-.13.1-.25.23-.36.37l-.13.15c-.09.1-.19.17-.3.22-.11.05-.22.08-.34.08-.12,0-.24-.02-.35-.07-.11-.05-.22-.12-.31-.21-.1-.09-.18-.2-.25-.33s-.13-.27-.18-.43a4.8 4.8 0 0 1-.22-1.29c.04-.3.14-.58.29-.82.15-.24.34-.45.58-.61.24-.16.51-.26.8-.29.29-.03.58,0,.86.08.28.08.54.22.77.42.23.2.41.45.55.73.14.28.23.59.26.91l.03.46zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
         </svg>
     </a>
 );
@@ -154,7 +180,6 @@ const Consignados = () => {
       <Header />
       <WhatsAppButton />
 
-      {/* Adicionado um paddingTop para não ficar atrás do Header fixo */}
       <main
         className="flex-grow flex flex-col items-center justify-center p-4 pt-24" 
         style={{
