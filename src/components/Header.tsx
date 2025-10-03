@@ -56,11 +56,11 @@ const Header = () => {
 
           {/* Botão de Contato para Desktop */}
           <div className="hidden md:block">
-            <Button asChild className="bg-primary hover:bg-primary/90">
-              <a href="https://wa.me/556196081413" target="_blank" rel="noopener noreferrer">
-                Entrar em contato
-              </a>
-            </Button>
+          <Button asChild className="bg-primary hover:bg-primary/90 w-fit mx-auto sm:mx-0 font-bold [text-shadow:1px_1px_2px_var(--tw-shadow-color)] shadow-black/50">
+            <a href="https://wa.me/556196081413" target="_blank" rel="noopener noreferrer">
+              Entrar em contato
+            </a>
+          </Button>
           </div>
 
           {/* 4. Botão Hambúrguer para Mobile */}

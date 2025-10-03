@@ -36,7 +36,7 @@ const Consignados = () => {
             </div>
           </div>
 
-          <div className="bg-white p-8 md:p-12 rounded-lg shadow-xl w-full">
+          <div className="bg-white p-8 md:p-12 rounded-lg shadow-2xl w-full border-2 border-lime-500">
             <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Preencha o formulário:</h2>
             <form className="space-y-4">
               <div>
