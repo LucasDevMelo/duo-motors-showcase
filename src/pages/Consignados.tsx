@@ -45,7 +45,7 @@ const Header = () => {
     { to: "/catalogo", label: "Catálogo" },
     { to: "/contato", label: "Contato" },
     { to: "/sobre", label: "Sobre nós" },
-    { to: "/consignados", label: "Consignados" },
+    { to: "/consignados", label: "Consignado" },
     { to: "/venda", label: "Venda" },
   ];
 
