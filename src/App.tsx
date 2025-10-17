@@ -12,6 +12,14 @@ import Venda from "./pages/Venda";
 import NotFound from "./pages/NotFound";
 import Contact from "./pages/Contact";
 
+// Admin pages
+import AdminLogin from "./pages/admin/Login";
+import Dashboard from "./pages/admin/Dashboard";
+import AdicionarCarros from "./pages/admin/AdicionarCarros";
+import GerenciarCarros from "./pages/admin/GerenciarCarros";
+import AdminVenda from "./pages/admin/Venda";
+import AdminConsignado from "./pages/admin/Consignado";
+
 // --- ADICIONE A IMPORTAÇÃO AQUI ---
 import ScrollToTop from "./components/ScroolTop";
 
@@ -34,6 +42,15 @@ const App = () => (
           <Route path="/veiculo/:id" element={<VehicleDetails />} />
           <Route path="/consignados" element={<Consignados />} />
           <Route path="/venda" element={<Venda />} />
+          
+          {/* Admin routes */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/adicionar" element={<AdicionarCarros />} />
+          <Route path="/admin/gerenciar" element={<GerenciarCarros />} />
+          <Route path="/admin/venda" element={<AdminVenda />} />
+          <Route path="/admin/consignado" element={<AdminConsignado />} />
+          
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
