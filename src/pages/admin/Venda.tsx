@@ -72,9 +72,11 @@ const Venda = () => {
               {submissions.map((item) => (
                 <TableRow key={item.id}>
                   <TableCell>
-                    <div className="w-16 h-12 bg-gray-200 rounded flex items-center justify-center text-2xl">
-                      {item.image}
-                    </div>
+                    <img 
+                      src={item.image} 
+                      alt={`${item.brand} ${item.model}`}
+                      className="w-16 h-12 object-cover rounded"
+                    />
                   </TableCell>
                   <TableCell>{item.model}</TableCell>
                   <TableCell>{item.brand}</TableCell>
