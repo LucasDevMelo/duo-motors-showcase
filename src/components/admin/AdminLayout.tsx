@@ -84,8 +84,14 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-auto">
-        <div className="p-8">{children}</div>
+      <main className="flex-1 overflow-auto flex flex-col">
+        {/* Topbar */}
+        <header className="bg-white border-b border-gray-200 px-8 py-4 flex items-center">
+          <img src={logo} alt="DUO MOTORS" className="h-8" />
+        </header>
+        
+        {/* Content */}
+        <div className="flex-1 p-8 bg-gray-50">{children}</div>
       </main>
     </div>
   );
