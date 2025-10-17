@@ -3,11 +3,18 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 
+import audiTTImage from "@/assets/audiTTroadster.png";
+import bmwZ4Image from "@/assets/bmwz4.png";
+import fTypeImage from "@/assets/ftype.png";
+import porscheCayenneImage from "@/assets/cayenne.png";
+import porscheBoxsterImage from "@/assets/porsche1.png"; // Usando porsche1.png para o Boxster
+import porsche911Image from "@/assets/porsche911.png";
+
 const Consignado = () => {
   const submissions = [
     {
       id: 1,
-      image: "🚗",
+      image: audiTTImage,
       model: "TT",
       brand: "Audi",
       value: "R$ -",
@@ -16,16 +23,16 @@ const Consignado = () => {
     },
     {
       id: 2,
-      image: "🚗",
+      image: audiTTImage,
       model: "RS7",
       brand: "Audi",
       value: "R$ -",
-      owner: "Renan Nicolau",
+      owner: "Renan Nicolas",
       phone: "(61)99999-9999",
     },
     {
       id: 3,
-      image: "🚗",
+      image: fTypeImage,
       model: "F Type",
       brand: "Jaguar",
       value: "R$ -",

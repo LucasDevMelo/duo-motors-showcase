@@ -1,7 +1,7 @@
 import { ReactNode, useEffect } from "react";
 import { useNavigate, NavLink, useLocation } from "react-router-dom";
 import { LayoutDashboard, Car, Plus, FileText, Package, LogOut, User } from "lucide-react";
-import logo from "@/assets/logo-duo-motors.png";
+import logo from "@/assets/logo.png";
 import { Button } from "@/components/ui/button";
 
 interface AdminLayoutProps {

@@ -3,39 +3,40 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 
+import audiTTImage from "@/assets/audiTTroadster.png";
+import bmwZ4Image from "@/assets/bmwz4.png";
+import fTypeImage from "@/assets/ftype.png";
+import porscheCayenneImage from "@/assets/cayenne.png";
+import porscheBoxsterImage from "@/assets/porsche1.png"; // Usando porsche1.png para o Boxster
+import porsche911Image from "@/assets/porsche911.png";
+
 const Venda = () => {
   const submissions = [
     {
       id: 1,
-      image: "🚗",
+      image: audiTTImage,
       model: "TT",
       brand: "Audi",
-      year: "2024",
-      mileage: "14.000 km",
-      version: "Roadster",
+      value: "R$ -",
       owner: "Neymar Junior",
       phone: "(61)99999-9999",
     },
     {
       id: 2,
-      image: "🚗",
+      image: audiTTImage,
       model: "RS7",
       brand: "Audi",
-      year: "2022",
-      mileage: "23.440 km",
-      version: "Performance",
-      owner: "Renan Nicolau",
+      value: "R$ -",
+      owner: "Renan Nicolas",
       phone: "(61)99999-9999",
     },
     {
       id: 3,
-      image: "🚗",
+      image: fTypeImage,
       model: "F Type",
       brand: "Jaguar",
-      year: "2021",
-      mileage: "40.338 km",
-      version: "P300",
-      owner: "John Godoi",
+      value: "R$ -",
+      owner: "João Godoi",
       phone: "(61)99999-9999",
     },
     {
@@ -43,9 +44,7 @@ const Venda = () => {
       image: "🚗",
       model: "500",
       brand: "Fiat",
-      year: "2014",
-      mileage: "100.878 km",
-      version: "Sport",
+      value: "R$ -",
       owner: "Vinícius Braga",
       phone: "(61)99999-9999",
     },
@@ -63,9 +62,7 @@ const Venda = () => {
                 <TableHead>Imagem</TableHead>
                 <TableHead>Modelo</TableHead>
                 <TableHead>Marca</TableHead>
-                <TableHead>Ano</TableHead>
-                <TableHead>Quilometragem</TableHead>
-                <TableHead>Versão</TableHead>
+                <TableHead>Valor desejado</TableHead>
                 <TableHead>Nome do proprietário</TableHead>
                 <TableHead>Telefone</TableHead>
                 <TableHead className="text-right">Ações</TableHead>
@@ -81,9 +78,7 @@ const Venda = () => {
                   </TableCell>
                   <TableCell>{item.model}</TableCell>
                   <TableCell>{item.brand}</TableCell>
-                  <TableCell>{item.year}</TableCell>
-                  <TableCell>{item.mileage}</TableCell>
-                  <TableCell>{item.version}</TableCell>
+                  <TableCell>{item.value}</TableCell>
                   <TableCell>{item.owner}</TableCell>
                   <TableCell>{item.phone}</TableCell>
                   <TableCell className="text-right">
