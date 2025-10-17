@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 
 import audiTTImage from "@/assets/audiTTroadster.png";
-import bmwZ4Image from "@/assets/bmwz4.png";
+import rs7 from "@/assets/rs7.png";
 import fTypeImage from "@/assets/ftype.png";
-import porscheCayenneImage from "@/assets/cayenne.png";
+import fiat500 from "@/assets/fiat500.png";
 import porscheBoxsterImage from "@/assets/porsche1.png"; // Usando porsche1.png para o Boxster
 import porsche911Image from "@/assets/porsche911.png";
 
@@ -23,7 +23,7 @@ const Consignado = () => {
     },
     {
       id: 2,
-      image: audiTTImage,
+      image: rs7,
       model: "RS7",
       brand: "Audi",
       value: "R$ -",
@@ -41,7 +41,7 @@ const Consignado = () => {
     },
     {
       id: 4,
-      image: "🚗",
+      image: fiat500,
       model: "500",
       brand: "Fiat",
       value: "R$ -",
