@@ -4,6 +4,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 
+import audiTTImage from "@/assets/audiTTroadster.png";
+import bmwz4Image from "@/assets/bmwz4.png";
+import fTypeImage from "@/assets/ftype.png";
+import cayenneImage from "@/assets/cayenne.png";
+
 const GerenciarCarros = () => {
   const cars = [
     {
@@ -13,7 +18,7 @@ const GerenciarCarros = () => {
       category: "Coupé",
       price: "R$238.800,00",
       status: "Disponível",
-      image: "🚗",
+      image: audiTTImage,
     },
     {
       id: 2,
@@ -22,7 +27,7 @@ const GerenciarCarros = () => {
       category: "Coupé",
       price: "R$498.800,00",
       status: "Indisponível",
-      image: "🚗",
+      image: bmwz4Image,
     },
     {
       id: 3,
@@ -31,7 +36,7 @@ const GerenciarCarros = () => {
       category: "Coupé",
       price: "-",
       status: "Disponível",
-      image: "🚗",
+      image: fTypeImage,
     },
     {
       id: 4,
@@ -40,7 +45,7 @@ const GerenciarCarros = () => {
       category: "SUV",
       price: "R$498.800,00",
       status: "Disponível",
-      image: "🚗",
+      image: cayenneImage,
     },
   ];
 
@@ -68,9 +73,11 @@ const GerenciarCarros = () => {
                 <TableRow key={car.id}>
                   <TableCell>
                     <div className="flex items-center gap-3">
-                      <div className="w-16 h-12 bg-gray-200 rounded flex items-center justify-center text-2xl">
-                        {car.image}
-                      </div>
+                      <img 
+                        src={car.image} 
+                        alt={`${car.brand} ${car.name}`}
+                        className="w-16 h-12 object-cover rounded"
+                      />
                       <div>
                         <p className="font-medium">{car.name}</p>
                         <p className="text-sm text-gray-500">{car.brand}</p>
