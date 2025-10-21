@@ -59,53 +59,38 @@ const VehicleDetails = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden">
-      {/* Background geométrico inspirado na imagem */}
-      <div className="absolute inset-0 z-0 bg-white">
-        <svg 
-          className="absolute inset-0 w-full h-full" 
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="xMidYMid slice"
-          viewBox="0 0 1920 1080"
-        >
+    <div className="min-h-screen flex flex-col relative">
+      {/* Background geométrico */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-br from-gray-50 via-white to-gray-100">
+        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="diag1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style={{ stopColor: '#f9fafb', stopOpacity: 1 }} />
-              <stop offset="100%" style={{ stopColor: '#e5e7eb', stopOpacity: 1 }} />
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style={{ stopColor: '#f3f4f6', stopOpacity: 0.8 }} />
+              <stop offset="100%" style={{ stopColor: '#e5e7eb', stopOpacity: 0.6 }} />
             </linearGradient>
-            <linearGradient id="diag2" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" style={{ stopColor: '#d1d5db', stopOpacity: 1 }} />
-              <stop offset="100%" style={{ stopColor: '#f3f4f6', stopOpacity: 1 }} />
-            </linearGradient>
-            <linearGradient id="diag3" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style={{ stopColor: '#e5e7eb', stopOpacity: 1 }} />
-              <stop offset="100%" style={{ stopColor: '#ffffff', stopOpacity: 1 }} />
+            <linearGradient id="grad2" x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style={{ stopColor: '#e5e7eb', stopOpacity: 0.7 }} />
+              <stop offset="100%" style={{ stopColor: '#d1d5db', stopOpacity: 0.5 }} />
             </linearGradient>
           </defs>
           
-          {/* Base branca */}
-          <rect width="1920" height="1080" fill="#ffffff"/>
+          {/* Triângulos grandes */}
+          <polygon points="0,0 800,0 0,600" fill="url(#grad1)" opacity="0.3" />
+          <polygon points="100%,0 100%,40% 60%,0" fill="url(#grad2)" opacity="0.4" />
+          <polygon points="0,100% 30%,100% 0,70%" fill="#d1d5db" opacity="0.2" />
+          <polygon points="100%,100% 100%,60% 70%,100%" fill="#e5e7eb" opacity="0.25" />
           
-          {/* Formas diagonais grandes - canto superior esquerdo */}
-          <path d="M 0,0 L 1200,0 L 0,800 Z" fill="url(#diag1)" opacity="0.6"/>
-          <path d="M 0,0 L 900,0 L 0,600 Z" fill="#f3f4f6" opacity="0.4"/>
-          <path d="M 0,200 L 600,0 L 0,500 Z" fill="#e5e7eb" opacity="0.3"/>
+          {/* Triângulos médios */}
+          <polygon points="20%,30% 40%,10% 45%,35%" fill="#f3f4f6" opacity="0.3" />
+          <polygon points="60%,50% 80%,45% 75%,65%" fill="#e5e7eb" opacity="0.35" />
+          <polygon points="15%,70% 25%,85% 10%,88%" fill="#d1d5db" opacity="0.25" />
+          <polygon points="85%,20% 95%,15% 92%,30%" fill="#f3f4f6" opacity="0.3" />
           
-          {/* Formas diagonais grandes - canto superior direito */}
-          <path d="M 1920,0 L 1920,600 L 1200,0 Z" fill="url(#diag3)" opacity="0.5"/>
-          <path d="M 1920,0 L 1920,400 L 1500,0 Z" fill="#d1d5db" opacity="0.3"/>
-          
-          {/* Formas diagonais grandes - canto inferior direito */}
-          <path d="M 1920,1080 L 1920,400 L 1100,1080 Z" fill="url(#diag2)" opacity="0.5"/>
-          <path d="M 1920,1080 L 1920,600 L 1400,1080 Z" fill="#e5e7eb" opacity="0.4"/>
-          
-          {/* Formas diagonais grandes - canto inferior esquerdo */}
-          <path d="M 0,1080 L 700,1080 L 0,500 Z" fill="#f9fafb" opacity="0.4"/>
-          
-          {/* Detalhes menores para textura */}
-          <path d="M 400,300 L 700,200 L 500,500 Z" fill="#e5e7eb" opacity="0.2"/>
-          <path d="M 1500,700 L 1700,600 L 1600,900 Z" fill="#d1d5db" opacity="0.2"/>
-          <path d="M 200,900 L 400,850 L 300,1000 Z" fill="#f3f4f6" opacity="0.25"/>
+          {/* Triângulos pequenos de detalhe */}
+          <polygon points="50%,15% 55%,10% 58%,18%" fill="#d1d5db" opacity="0.2" />
+          <polygon points="30%,60% 35%,55% 38%,62%" fill="#e5e7eb" opacity="0.25" />
+          <polygon points="70%,75% 75%,72% 77%,78%" fill="#f3f4f6" opacity="0.3" />
+          <polygon points="10%,45% 15%,42% 17%,48%" fill="#d1d5db" opacity="0.2" />
         </svg>
       </div>
 
@@ -115,12 +100,12 @@ const VehicleDetails = () => {
         <WhatsAppButton />
 
         <main className="pt-24 pb-16 flex-1">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <Link to="/catalogo" className="inline-flex items-center text-duo-gray-dark hover:text-primary transition-colors mb-6 md:mb-8">
+          <div className="container mx-auto px-4">
+            <Link to="/catalogo" className="inline-flex items-center text-duo-gray-dark hover:text-primary transition-colors mb-8">
               ← Voltar para todos os carros
             </Link>
             
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 mb-8 md:mb-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
               {/* Imagens */}
               <div>
                 <div className="relative aspect-video mb-4 rounded-lg overflow-hidden">
@@ -174,21 +159,21 @@ const VehicleDetails = () => {
               </div>
               
               {/* Informações */}
-              <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 md:p-8 shadow-lg">
-                <p className="text-primary font-bold mb-2 text-sm md:text-base">{vehicleData.brand}</p>
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">{vehicleData.model}</h1>
+              <div>
+                <p className="text-primary font-bold mb-2">{vehicleData.brand}</p>
+                <h1 className="text-3xl font-bold mb-4">{vehicleData.model}</h1>
                 
-                <div className="flex gap-4 md:gap-6 text-duo-gray-dark mb-6 text-sm md:text-base">
+                <div className="flex gap-6 text-duo-gray-dark mb-6">
                   <span>{vehicleData.year}</span>
                   <span>{vehicleData.transmission}</span>
                 </div>
                 
-                <p className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-6 md:mb-8">{vehicleData.price}</p>
+                <p className="text-4xl font-bold text-primary mb-6">{vehicleData.price}</p>
                 
                 <Button 
                   onClick={handleProposal}
                   size="lg" 
-                  className="w-full bg-primary hover:bg-primary/90 text-base md:text-lg"
+                  className="w-full bg-primary hover:bg-primary/90"
                 >
                   Fazer proposta
                 </Button>
@@ -196,48 +181,48 @@ const VehicleDetails = () => {
             </div>
             
             {/* Detalhes */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Especificações */}
-              <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 md:p-8 shadow-lg">
-                <h2 className="text-xl md:text-2xl font-bold text-primary mb-4 md:mb-6">Motor e Performance</h2>
-                <div className="space-y-2 md:space-y-3">
-                  <div className="flex justify-between py-2 border-b text-sm md:text-base">
+              <div>
+                <h2 className="text-2xl font-bold text-primary mb-4">Motor e Performance</h2>
+                <div className="space-y-3">
+                  <div className="flex justify-between py-2 border-b">
                     <span className="text-duo-gray-dark">Combustível:</span>
                     <span className="font-medium">{vehicleData.specs.fuel}</span>
                   </div>
-                  <div className="flex justify-between py-2 border-b text-sm md:text-base">
+                  <div className="flex justify-between py-2 border-b">
                     <span className="text-duo-gray-dark">Transmissão:</span>
                     <span className="font-medium">{vehicleData.specs.transmission}</span>
                   </div>
-                  <div className="flex justify-between py-2 border-b text-sm md:text-base">
+                  <div className="flex justify-between py-2 border-b">
                     <span className="text-duo-gray-dark">Tração:</span>
                     <span className="font-medium">{vehicleData.specs.drive}</span>
                   </div>
-                  <div className="flex justify-between py-2 border-b text-sm md:text-base">
+                  <div className="flex justify-between py-2 border-b">
                     <span className="text-duo-gray-dark">Velocidade máxima:</span>
                     <span className="font-medium">{vehicleData.specs.maxSpeed}</span>
                   </div>
-                  <div className="flex justify-between py-2 border-b text-sm md:text-base">
+                  <div className="flex justify-between py-2 border-b">
                     <span className="text-duo-gray-dark">Aceleração 0–100 km/h:</span>
                     <span className="font-medium">{vehicleData.specs.acceleration}</span>
                   </div>
                 </div>
                 
-                <h3 className="text-lg md:text-xl font-bold mt-6 md:mt-8 mb-3 md:mb-4">Especificações técnicas</h3>
-                <div className="space-y-2 md:space-y-3">
-                  <div className="flex justify-between py-2 border-b text-sm md:text-base">
+                <h3 className="text-xl font-bold mt-8 mb-4">Especificações técnicas</h3>
+                <div className="space-y-3">
+                  <div className="flex justify-between py-2 border-b">
                     <span className="text-duo-gray-dark">Marca:</span>
                     <span className="font-medium">{vehicleData.specs.brand}</span>
                   </div>
-                  <div className="flex justify-between py-2 border-b text-sm md:text-base">
+                  <div className="flex justify-between py-2 border-b">
                     <span className="text-duo-gray-dark">Modelo:</span>
                     <span className="font-medium">{vehicleData.specs.model}</span>
                   </div>
-                  <div className="flex justify-between py-2 border-b text-sm md:text-base">
+                  <div className="flex justify-between py-2 border-b">
                     <span className="text-duo-gray-dark">Ano:</span>
                     <span className="font-medium">{vehicleData.specs.year}</span>
                   </div>
-                  <div className="flex justify-between py-2 border-b text-sm md:text-base">
+                  <div className="flex justify-between py-2 border-b">
                     <span className="text-duo-gray-dark">Quilometragem:</span>
                     <span className="font-medium">{vehicleData.specs.km}</span>
                   </div>
@@ -245,9 +230,9 @@ const VehicleDetails = () => {
               </div>
               
               {/* Descrição */}
-              <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 md:p-8 shadow-lg">
-                <h2 className="text-xl md:text-2xl font-bold text-primary mb-4 md:mb-6">Sobre</h2>
-                <p className="text-base md:text-lg leading-relaxed whitespace-pre-line">
+              <div>
+                <h2 className="text-2xl font-bold text-primary mb-4">Sobre</h2>
+                <p className="text-lg leading-relaxed whitespace-pre-line">
                   {vehicleData.description}
                 </p>
               </div>
