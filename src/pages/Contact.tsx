@@ -49,7 +49,7 @@ const Contact = () => {
               Fale com um de nossos especialistas via WhatsApp:
             </p>
             <a
-              href="https://wa.me/5591996081415"
+              href="https://wa.me/556196081413"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center w-16 h-16 rounded-full bg-green-500 hover:bg-green-600 transition"
