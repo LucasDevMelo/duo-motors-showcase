@@ -6,7 +6,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { Button } from "@/components/ui/button";
-import vehicleBg from "@/assets/vehicle-bg.png";
 
 // Imagens locais
 import porsche1 from "@/assets/porsche1.png";
@@ -61,11 +60,39 @@ const VehicleDetails = () => {
 
   return (
     <div className="min-h-screen flex flex-col relative">
-      {/* Background sempre no fundo */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-        style={{ backgroundImage: `url(${vehicleBg})` }}
-      />
+      {/* Background geométrico */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-br from-gray-50 via-white to-gray-100">
+        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style={{ stopColor: '#f3f4f6', stopOpacity: 0.8 }} />
+              <stop offset="100%" style={{ stopColor: '#e5e7eb', stopOpacity: 0.6 }} />
+            </linearGradient>
+            <linearGradient id="grad2" x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style={{ stopColor: '#e5e7eb', stopOpacity: 0.7 }} />
+              <stop offset="100%" style={{ stopColor: '#d1d5db', stopOpacity: 0.5 }} />
+            </linearGradient>
+          </defs>
+          
+          {/* Triângulos grandes */}
+          <polygon points="0,0 800,0 0,600" fill="url(#grad1)" opacity="0.3" />
+          <polygon points="100%,0 100%,40% 60%,0" fill="url(#grad2)" opacity="0.4" />
+          <polygon points="0,100% 30%,100% 0,70%" fill="#d1d5db" opacity="0.2" />
+          <polygon points="100%,100% 100%,60% 70%,100%" fill="#e5e7eb" opacity="0.25" />
+          
+          {/* Triângulos médios */}
+          <polygon points="20%,30% 40%,10% 45%,35%" fill="#f3f4f6" opacity="0.3" />
+          <polygon points="60%,50% 80%,45% 75%,65%" fill="#e5e7eb" opacity="0.35" />
+          <polygon points="15%,70% 25%,85% 10%,88%" fill="#d1d5db" opacity="0.25" />
+          <polygon points="85%,20% 95%,15% 92%,30%" fill="#f3f4f6" opacity="0.3" />
+          
+          {/* Triângulos pequenos de detalhe */}
+          <polygon points="50%,15% 55%,10% 58%,18%" fill="#d1d5db" opacity="0.2" />
+          <polygon points="30%,60% 35%,55% 38%,62%" fill="#e5e7eb" opacity="0.25" />
+          <polygon points="70%,75% 75%,72% 77%,78%" fill="#f3f4f6" opacity="0.3" />
+          <polygon points="10%,45% 15%,42% 17%,48%" fill="#d1d5db" opacity="0.2" />
+        </svg>
+      </div>
 
       {/* Conteúdo */}
       <div className="relative z-10 flex flex-col min-h-screen">
