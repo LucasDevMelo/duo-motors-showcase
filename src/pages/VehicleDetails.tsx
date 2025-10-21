@@ -6,7 +6,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { Button } from "@/components/ui/button";
-import vehicleBg from "@/assets/vehicle-bg.png";
 
 // Imagens locais
 import porsche1 from "@/assets/porsche1.png";
@@ -61,11 +60,8 @@ const VehicleDetails = () => {
 
   return (
     <div className="min-h-screen flex flex-col relative">
-      {/* Background sempre no fundo */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-        style={{ backgroundImage: `url(${vehicleBg})` }}
-      />
+      {/* Background geométrico */}
+      <div className="absolute inset-0 -z-10 geometric-bg" />
 
       {/* Conteúdo */}
       <div className="relative z-10 flex flex-col min-h-screen">
