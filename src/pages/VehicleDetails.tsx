@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { Button } from "@/components/ui/button";
+import vehicleBg from "@/assets/vehicle-bg.png";
 
 // Imagens locais
 import porsche1 from "@/assets/porsche1.png";
@@ -60,49 +61,11 @@ const VehicleDetails = () => {
 
   return (
     <div className="min-h-screen flex flex-col relative">
-      {/* Background geométrico */}
-      <div className="absolute inset-0 z-0 bg-white">
-        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style={{ stopColor: '#f9fafb', stopOpacity: 1 }} />
-              <stop offset="100%" style={{ stopColor: '#e5e7eb', stopOpacity: 1 }} />
-            </linearGradient>
-            <linearGradient id="grad2" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style={{ stopColor: '#4b5563', stopOpacity: 1 }} />
-              <stop offset="100%" style={{ stopColor: '#6b7280', stopOpacity: 1 }} />
-            </linearGradient>
-            <linearGradient id="grad3" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" style={{ stopColor: '#1f2937', stopOpacity: 1 }} />
-              <stop offset="100%" style={{ stopColor: '#374151', stopOpacity: 1 }} />
-            </linearGradient>
-            <linearGradient id="grad4" x1="50%" y1="0%" x2="50%" y2="100%">
-              <stop offset="0%" style={{ stopColor: '#ffffff', stopOpacity: 1 }} />
-              <stop offset="100%" style={{ stopColor: '#d1d5db', stopOpacity: 1 }} />
-            </linearGradient>
-          </defs>
-          
-          {/* Triângulos grandes bem visíveis */}
-          <polygon points="0,0 50%,0 0,60%" fill="url(#grad1)" />
-          <polygon points="100%,0 100%,50% 60%,0" fill="url(#grad2)" />
-          <polygon points="0,100% 40%,100% 0,70%" fill="#374151" />
-          <polygon points="100%,100% 100%,60% 70%,100%" fill="url(#grad3)" />
-          
-          {/* Triângulos médios - mix de escuro e claro */}
-          <polygon points="20%,30% 40%,10% 45%,35%" fill="#ffffff" />
-          <polygon points="55%,45% 75%,40% 70%,65%" fill="#4b5563" />
-          <polygon points="10%,75% 25%,85% 8%,90%" fill="#6b7280" />
-          <polygon points="80%,20% 92%,15% 88%,32%" fill="#d1d5db" />
-          
-          {/* Triângulos pequenos para detalhe */}
-          <polygon points="50%,15% 56%,10% 60%,18%" fill="#ffffff" />
-          <polygon points="30%,60% 36%,55% 40%,62%" fill="#1f2937" />
-          <polygon points="65%,70% 71%,66% 75%,74%" fill="#e5e7eb" />
-          <polygon points="12%,45% 18%,42% 22%,48%" fill="#6b7280" />
-          <polygon points="85%,55% 90%,52% 93%,60%" fill="#f3f4f6" />
-          <polygon points="40%,80% 46%,76% 50%,84%" fill="#9ca3af" />
-        </svg>
-      </div>
+      {/* Background sempre no fundo */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
+        style={{ backgroundImage: `url(${vehicleBg})` }}
+      />
 
       {/* Conteúdo */}
       <div className="relative z-10 flex flex-col min-h-screen">
