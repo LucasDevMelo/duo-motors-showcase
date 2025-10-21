@@ -61,46 +61,46 @@ const VehicleDetails = () => {
   return (
     <div className="min-h-screen flex flex-col relative">
       {/* Background geométrico */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-br from-gray-100 via-gray-200 to-white">
-        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <div className="absolute inset-0 z-0 bg-white">
+        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
           <defs>
             <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style={{ stopColor: '#ffffff', stopOpacity: 0.9 }} />
-              <stop offset="100%" style={{ stopColor: '#d1d5db', stopOpacity: 0.8 }} />
+              <stop offset="0%" style={{ stopColor: '#f9fafb', stopOpacity: 1 }} />
+              <stop offset="100%" style={{ stopColor: '#e5e7eb', stopOpacity: 1 }} />
             </linearGradient>
             <linearGradient id="grad2" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style={{ stopColor: '#6b7280', stopOpacity: 0.7 }} />
-              <stop offset="100%" style={{ stopColor: '#9ca3af', stopOpacity: 0.6 }} />
+              <stop offset="0%" style={{ stopColor: '#4b5563', stopOpacity: 1 }} />
+              <stop offset="100%" style={{ stopColor: '#6b7280', stopOpacity: 1 }} />
             </linearGradient>
             <linearGradient id="grad3" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" style={{ stopColor: '#374151', stopOpacity: 0.5 }} />
-              <stop offset="100%" style={{ stopColor: '#6b7280', stopOpacity: 0.4 }} />
+              <stop offset="0%" style={{ stopColor: '#1f2937', stopOpacity: 1 }} />
+              <stop offset="100%" style={{ stopColor: '#374151', stopOpacity: 1 }} />
             </linearGradient>
             <linearGradient id="grad4" x1="50%" y1="0%" x2="50%" y2="100%">
-              <stop offset="0%" style={{ stopColor: '#ffffff', stopOpacity: 0.8 }} />
-              <stop offset="100%" style={{ stopColor: '#e5e7eb', stopOpacity: 0.6 }} />
+              <stop offset="0%" style={{ stopColor: '#ffffff', stopOpacity: 1 }} />
+              <stop offset="100%" style={{ stopColor: '#d1d5db', stopOpacity: 1 }} />
             </linearGradient>
           </defs>
           
-          {/* Triângulos grandes com mais contraste */}
-          <polygon points="0,0 900,0 0,700" fill="url(#grad1)" opacity="0.6" />
-          <polygon points="100%,0 100%,45% 55%,0" fill="url(#grad2)" opacity="0.7" />
-          <polygon points="0,100% 35%,100% 0,65%" fill="#4b5563" opacity="0.5" />
-          <polygon points="100%,100% 100%,55% 65%,100%" fill="url(#grad3)" opacity="0.6" />
+          {/* Triângulos grandes bem visíveis */}
+          <polygon points="0,0 50%,0 0,60%" fill="url(#grad1)" />
+          <polygon points="100%,0 100%,50% 60%,0" fill="url(#grad2)" />
+          <polygon points="0,100% 40%,100% 0,70%" fill="#374151" />
+          <polygon points="100%,100% 100%,60% 70%,100%" fill="url(#grad3)" />
           
           {/* Triângulos médios - mix de escuro e claro */}
-          <polygon points="15%,25% 35%,8% 42%,32%" fill="#ffffff" opacity="0.7" />
-          <polygon points="60%,45% 82%,40% 77%,68%" fill="#6b7280" opacity="0.5" />
-          <polygon points="12%,75% 28%,88% 8%,92%" fill="#9ca3af" opacity="0.6" />
-          <polygon points="82%,18% 96%,12% 93%,32%" fill="#e5e7eb" opacity="0.7" />
+          <polygon points="20%,30% 40%,10% 45%,35%" fill="#ffffff" />
+          <polygon points="55%,45% 75%,40% 70%,65%" fill="#4b5563" />
+          <polygon points="10%,75% 25%,85% 8%,90%" fill="#6b7280" />
+          <polygon points="80%,20% 92%,15% 88%,32%" fill="#d1d5db" />
           
-          {/* Triângulos pequenos de detalhe com branco */}
-          <polygon points="48%,12% 54%,8% 58%,16%" fill="#ffffff" opacity="0.8" />
-          <polygon points="28%,58% 34%,52% 38%,60%" fill="#4b5563" opacity="0.5" />
-          <polygon points="68%,72% 74%,68% 78%,76%" fill="#d1d5db" opacity="0.7" />
-          <polygon points="8%,42% 14%,38% 18%,46%" fill="#6b7280" opacity="0.5" />
-          <polygon points="88%,58% 92%,54% 95%,62%" fill="#ffffff" opacity="0.6" />
-          <polygon points="42%,82% 48%,78% 52%,86%" fill="#9ca3af" opacity="0.6" />
+          {/* Triângulos pequenos para detalhe */}
+          <polygon points="50%,15% 56%,10% 60%,18%" fill="#ffffff" />
+          <polygon points="30%,60% 36%,55% 40%,62%" fill="#1f2937" />
+          <polygon points="65%,70% 71%,66% 75%,74%" fill="#e5e7eb" />
+          <polygon points="12%,45% 18%,42% 22%,48%" fill="#6b7280" />
+          <polygon points="85%,55% 90%,52% 93%,60%" fill="#f3f4f6" />
+          <polygon points="40%,80% 46%,76% 50%,84%" fill="#9ca3af" />
         </svg>
       </div>
 
