@@ -3,51 +3,109 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
-
-import audiTTImage from "@/assets/audiTTroadster.png";
-import bmwz4Image from "@/assets/bmwz4.png";
-import fTypeImage from "@/assets/ftype.png";
-import cayenneImage from "@/assets/cayenne.png";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const GerenciarCarros = () => {
-  const cars = [
-    {
-      id: 1,
-      name: "TT Roadster",
-      brand: "Audi",
-      category: "Coupé",
-      price: "R$238.800,00",
-      status: "Disponível",
-      image: audiTTImage,
-    },
-    {
-      id: 2,
-      name: "Bmw Z4 30i M Sport",
-      brand: "BMW",
-      category: "Coupé",
-      price: "R$498.800,00",
-      status: "Indisponível",
-      image: bmwz4Image,
-    },
-    {
-      id: 3,
-      name: "F Type P300 Automático",
-      brand: "Jaguar",
-      category: "Coupé",
-      price: "-",
-      status: "Disponível",
-      image: fTypeImage,
-    },
-    {
-      id: 4,
-      name: "PORSCHE CAYENNE Automático",
-      brand: "Porsche",
-      category: "SUV",
-      price: "R$498.800,00",
-      status: "Disponível",
-      image: cayenneImage,
-    },
-  ];
+  const { toast } = useToast();
+  const [cars, setCars] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchCars();
+  }, []);
+
+  const fetchCars = async () => {
+    const { data, error } = await supabase
+      .from('vehicles')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      toast({
+        title: "Erro ao carregar veículos",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      setCars(data || []);
+    }
+    setLoading(false);
+  };
+
+  const handleDelete = async (id: string) => {
+    const { error } = await supabase
+      .from('vehicles')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      toast({
+        title: "Erro ao deletar veículo",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Veículo deletado com sucesso",
+      });
+      fetchCars();
+    }
+  };
+
+  const getStatusBadge = (status: string) => {
+    const variants: Record<string, "default" | "secondary" | "destructive"> = {
+      available: "default",
+      sold: "destructive",
+      reserved: "secondary",
+    };
+
+    const labels: Record<string, string> = {
+      available: "Disponível",
+      sold: "Vendido",
+      reserved: "Reservado",
+    };
+
+    return (
+      <Badge
+        variant={variants[status] || "default"}
+        className={
+          status === "available"
+            ? "bg-green-100 text-green-800 hover:bg-green-200"
+            : status === "sold"
+            ? "bg-red-100 text-red-800 hover:bg-red-200"
+            : "bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
+        }
+      >
+        {labels[status] || status}
+      </Badge>
+    );
+  };
+
+  const getCategoryLabel = (category: string) => {
+    const labels: Record<string, string> = {
+      sedan: "Sedan",
+      suv: "SUV",
+      coupe: "Coupé",
+      roadster: "Roadster",
+      hatchback: "Hatchback",
+    };
+    return labels[category] || category;
+  };
+
+  if (loading) {
+    return (
+      <AdminLayout>
+        <div className="space-y-6">
+          <div>
+            <h1 className="text-3xl font-bold mb-2">Gerenciar carros</h1>
+            <p className="text-gray-600">Carregando...</p>
+          </div>
+        </div>
+      </AdminLayout>
+    );
+  }
 
   return (
     <AdminLayout>
@@ -69,42 +127,41 @@ const GerenciarCarros = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {cars.map((car) => (
-                <TableRow key={car.id}>
-                  <TableCell>
-                    <div className="flex items-center gap-3">
-                      <img 
-                        src={car.image} 
-                        alt={`${car.brand} ${car.name}`}
-                        className="w-16 h-12 object-cover rounded"
-                      />
+              {cars.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={5} className="text-center py-8 text-gray-500">
+                    Nenhum veículo cadastrado
+                  </TableCell>
+                </TableRow>
+              ) : (
+                cars.map((car) => (
+                  <TableRow key={car.id}>
+                    <TableCell>
                       <div>
                         <p className="font-medium">{car.name}</p>
                         <p className="text-sm text-gray-500">{car.brand}</p>
                       </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>{car.category}</TableCell>
-                  <TableCell>{car.price}</TableCell>
-                  <TableCell>
-                    <Badge
-                      variant={car.status === "Disponível" ? "default" : "destructive"}
-                      className={
-                        car.status === "Disponível"
-                          ? "bg-green-100 text-green-800 hover:bg-green-200"
-                          : "bg-red-100 text-red-800 hover:bg-red-200"
-                      }
-                    >
-                      {car.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <Button variant="ghost" size="icon">
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+                    </TableCell>
+                    <TableCell>{getCategoryLabel(car.category)}</TableCell>
+                    <TableCell>
+                      {new Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL',
+                      }).format(car.price)}
+                    </TableCell>
+                    <TableCell>{getStatusBadge(car.status)}</TableCell>
+                    <TableCell className="text-right">
+                      <Button 
+                        variant="ghost" 
+                        size="icon"
+                        onClick={() => handleDelete(car.id)}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
             </TableBody>
           </Table>
         </div>

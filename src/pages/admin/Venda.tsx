@@ -2,53 +2,67 @@ import AdminLayout from "@/components/admin/AdminLayout";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
-
-import audiTTImage from "@/assets/audiTTroadster.png";
-import rs7 from "@/assets/rs7.png";
-import fTypeImage from "@/assets/ftype.png";
-import fiat500 from "@/assets/fiat500.png";
-import porscheBoxsterImage from "@/assets/porsche1.png"; // Usando porsche1.png para o Boxster
-import porsche911Image from "@/assets/porsche911.png";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const Venda = () => {
-  const submissions = [
-    {
-      id: 1,
-      image: audiTTImage,
-      model: "TT",
-      brand: "Audi",
-      value: "R$ -",
-      owner: "Neymar Junior",
-      phone: "(61)99999-9999",
-    },
-    {
-      id: 2,
-      image: audiTTImage,
-      model: "RS7",
-      brand: "Audi",
-      value: "R$ -",
-      owner: "Renan Nicolas",
-      phone: "(61)99999-9999",
-    },
-    {
-      id: 3,
-      image: fTypeImage,
-      model: "F Type",
-      brand: "Jaguar",
-      value: "R$ -",
-      owner: "João Godoi",
-      phone: "(61)99999-9999",
-    },
-    {
-      id: 4,
-      image: fiat500,
-      model: "500",
-      brand: "Fiat",
-      value: "R$ -",
-      owner: "Vinícius Braga",
-      phone: "(61)99999-9999",
-    },
-  ];
+  const { toast } = useToast();
+  const [submissions, setSubmissions] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchSubmissions();
+  }, []);
+
+  const fetchSubmissions = async () => {
+    const { data, error } = await supabase
+      .from('sale_submissions')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      toast({
+        title: "Erro ao carregar submissões",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      setSubmissions(data || []);
+    }
+    setLoading(false);
+  };
+
+  const handleDelete = async (id: string) => {
+    const { error } = await supabase
+      .from('sale_submissions')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      toast({
+        title: "Erro ao deletar submissão",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Submissão deletada com sucesso",
+      });
+      fetchSubmissions();
+    }
+  };
+
+  if (loading) {
+    return (
+      <AdminLayout>
+        <div className="space-y-6">
+          <h1 className="text-3xl font-bold">Veículos recebidos no formulário da venda</h1>
+          <p className="text-gray-600">Carregando...</p>
+        </div>
+      </AdminLayout>
+    );
+  }
 
   return (
     <AdminLayout>
@@ -59,9 +73,10 @@ const Venda = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Imagem</TableHead>
                 <TableHead>Modelo</TableHead>
                 <TableHead>Marca</TableHead>
+                <TableHead>Ano</TableHead>
+                <TableHead>Quilometragem</TableHead>
                 <TableHead>Valor desejado</TableHead>
                 <TableHead>Nome do proprietário</TableHead>
                 <TableHead>Telefone</TableHead>
@@ -69,27 +84,34 @@ const Venda = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {submissions.map((item) => (
-                <TableRow key={item.id}>
-                  <TableCell>
-                    <img 
-                      src={item.image} 
-                      alt={`${item.brand} ${item.model}`}
-                      className="w-16 h-12 object-cover rounded"
-                    />
-                  </TableCell>
-                  <TableCell>{item.model}</TableCell>
-                  <TableCell>{item.brand}</TableCell>
-                  <TableCell>{item.value}</TableCell>
-                  <TableCell>{item.owner}</TableCell>
-                  <TableCell>{item.phone}</TableCell>
-                  <TableCell className="text-right">
-                    <Button variant="ghost" size="icon">
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
+              {submissions.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={8} className="text-center py-8 text-gray-500">
+                    Nenhuma submissão de venda recebida
                   </TableCell>
                 </TableRow>
-              ))}
+              ) : (
+                submissions.map((item) => (
+                  <TableRow key={item.id}>
+                    <TableCell>{item.model}</TableCell>
+                    <TableCell>{item.brand}</TableCell>
+                    <TableCell>{item.year}</TableCell>
+                    <TableCell>{item.kilometers ? `${item.kilometers} km` : '-'}</TableCell>
+                    <TableCell>{item.desired_value || 'Não informado'}</TableCell>
+                    <TableCell>{item.owner_name}</TableCell>
+                    <TableCell>{item.phone}</TableCell>
+                    <TableCell className="text-right">
+                      <Button 
+                        variant="ghost" 
+                        size="icon"
+                        onClick={() => handleDelete(item.id)}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
             </TableBody>
           </Table>
         </div>
