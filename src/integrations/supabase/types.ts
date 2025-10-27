@@ -14,16 +14,196 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      consignment_submissions: {
+        Row: {
+          brand: string
+          created_at: string | null
+          desired_value: string | null
+          email: string | null
+          id: string
+          image_url: string | null
+          kilometers: number | null
+          model: string
+          owner_name: string
+          phone: string
+          version: string | null
+          year: number
+        }
+        Insert: {
+          brand: string
+          created_at?: string | null
+          desired_value?: string | null
+          email?: string | null
+          id?: string
+          image_url?: string | null
+          kilometers?: number | null
+          model: string
+          owner_name: string
+          phone: string
+          version?: string | null
+          year: number
+        }
+        Update: {
+          brand?: string
+          created_at?: string | null
+          desired_value?: string | null
+          email?: string | null
+          id?: string
+          image_url?: string | null
+          kilometers?: number | null
+          model?: string
+          owner_name?: string
+          phone?: string
+          version?: string | null
+          year?: number
+        }
+        Relationships: []
+      }
+      sale_submissions: {
+        Row: {
+          brand: string
+          created_at: string | null
+          desired_value: string | null
+          email: string | null
+          id: string
+          image_url: string | null
+          kilometers: number | null
+          model: string
+          owner_name: string
+          phone: string
+          version: string | null
+          year: number
+        }
+        Insert: {
+          brand: string
+          created_at?: string | null
+          desired_value?: string | null
+          email?: string | null
+          id?: string
+          image_url?: string | null
+          kilometers?: number | null
+          model: string
+          owner_name: string
+          phone: string
+          version?: string | null
+          year: number
+        }
+        Update: {
+          brand?: string
+          created_at?: string | null
+          desired_value?: string | null
+          email?: string | null
+          id?: string
+          image_url?: string | null
+          kilometers?: number | null
+          model?: string
+          owner_name?: string
+          phone?: string
+          version?: string | null
+          year?: number
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      vehicles: {
+        Row: {
+          brand: string
+          category: Database["public"]["Enums"]["vehicle_category"]
+          created_at: string | null
+          description: string | null
+          fuel: Database["public"]["Enums"]["fuel_type"]
+          id: string
+          image_urls: string[] | null
+          kilometers: number | null
+          main_image_url: string | null
+          model: string
+          name: string
+          price: number
+          specifications: Json | null
+          status: Database["public"]["Enums"]["vehicle_status"]
+          transmission: Database["public"]["Enums"]["transmission_type"]
+          updated_at: string | null
+          year: number
+        }
+        Insert: {
+          brand: string
+          category: Database["public"]["Enums"]["vehicle_category"]
+          created_at?: string | null
+          description?: string | null
+          fuel: Database["public"]["Enums"]["fuel_type"]
+          id?: string
+          image_urls?: string[] | null
+          kilometers?: number | null
+          main_image_url?: string | null
+          model: string
+          name: string
+          price: number
+          specifications?: Json | null
+          status?: Database["public"]["Enums"]["vehicle_status"]
+          transmission: Database["public"]["Enums"]["transmission_type"]
+          updated_at?: string | null
+          year: number
+        }
+        Update: {
+          brand?: string
+          category?: Database["public"]["Enums"]["vehicle_category"]
+          created_at?: string | null
+          description?: string | null
+          fuel?: Database["public"]["Enums"]["fuel_type"]
+          id?: string
+          image_urls?: string[] | null
+          kilometers?: number | null
+          main_image_url?: string | null
+          model?: string
+          name?: string
+          price?: number
+          specifications?: Json | null
+          status?: Database["public"]["Enums"]["vehicle_status"]
+          transmission?: Database["public"]["Enums"]["transmission_type"]
+          updated_at?: string | null
+          year?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
+      fuel_type: "gasoline" | "diesel" | "electric" | "hybrid" | "flex"
+      transmission_type: "manual" | "automatic" | "semi-automatic"
+      vehicle_category: "sedan" | "suv" | "coupe" | "roadster" | "hatchback"
+      vehicle_status: "available" | "sold" | "reserved"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +330,12 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+      fuel_type: ["gasoline", "diesel", "electric", "hybrid", "flex"],
+      transmission_type: ["manual", "automatic", "semi-automatic"],
+      vehicle_category: ["sedan", "suv", "coupe", "roadster", "hatchback"],
+      vehicle_status: ["available", "sold", "reserved"],
+    },
   },
 } as const
