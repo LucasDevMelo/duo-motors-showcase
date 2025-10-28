@@ -3,6 +3,7 @@ import { useNavigate, NavLink, useLocation } from "react-router-dom";
 import { LayoutDashboard, Car, Plus, FileText, Package, LogOut, User } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -11,18 +12,23 @@ interface AdminLayoutProps {
 const AdminLayout = ({ children }: AdminLayoutProps) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user, isAdmin, loading, signOut } = useAuth();
 
   useEffect(() => {
-    const isAuth = localStorage.getItem("adminAuth");
-    if (!isAuth) {
+    if (loading) return;
+    if (!user) {
+      navigate("/admin/login");
+      return;
+    }
+    if (!isAdmin) {
       navigate("/admin/login");
     }
-  }, [navigate]);
+  }, [user, isAdmin, loading, navigate]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("adminAuth");
-    navigate("/admin/login");
-  };
+const handleLogout = async () => {
+  await signOut();
+  navigate("/admin/login");
+};
 
   const menuItems = [
     { icon: LayoutDashboard, label: "Painel de controle", path: "/admin/dashboard" },
@@ -48,7 +54,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
               <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
                 <User className="w-6 h-6 text-gray-600" />
               </div>
-              <span className="text-sm font-medium">User</span>
+              <span className="text-sm font-medium">{user?.email ?? "Admin"}</span>
             </div>
           </div>
 
