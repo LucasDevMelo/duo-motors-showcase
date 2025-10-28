@@ -39,6 +39,10 @@ const AdminLogin = () => {
         title: "Login realizado com sucesso!",
         description: "Redirecionando para o painel...",
       });
+      // Redirect will happen through useEffect when isAdmin is updated
+      setTimeout(() => {
+        navigate("/admin/dashboard");
+      }, 500);
     }
   };
 
