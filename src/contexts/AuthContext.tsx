@@ -20,53 +20,41 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing session first
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    // Set up auth state listener FIRST
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
-      
+
       if (session?.user) {
-        supabase
-          .from('user_roles')
-          .select('role')
-          .eq('user_id', session.user.id)
-          .eq('role', 'admin')
-          .maybeSingle()
-          .then(({ data }) => {
-            setIsAdmin(!!data);
+        // Defer Supabase calls to avoid deadlock in callback
+        setTimeout(() => {
+          (async () => {
+            const { data, error } = await supabase.rpc('has_role', { _user_id: session.user.id, _role: 'admin' as any });
+            setIsAdmin(Boolean(data));
             setLoading(false);
-          });
+          })();
+        }, 0);
       } else {
+        setIsAdmin(false);
         setLoading(false);
       }
     });
 
-    // Set up auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        
-        if (session?.user) {
-          // Check if user is admin using setTimeout to avoid deadlock
-          setTimeout(() => {
-            supabase
-              .from('user_roles')
-              .select('role')
-              .eq('user_id', session.user.id)
-              .eq('role', 'admin')
-              .maybeSingle()
-              .then(({ data }) => {
-                setIsAdmin(!!data);
-                setLoading(false);
-              });
-          }, 0);
-        } else {
-          setIsAdmin(false);
+    // THEN check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+
+      if (session?.user) {
+        (async () => {
+          const { data } = await supabase.rpc('has_role', { _user_id: session.user.id, _role: 'admin' as any });
+          setIsAdmin(Boolean(data));
           setLoading(false);
-        }
+        })();
+      } else {
+        setLoading(false);
       }
-    );
+    });
 
     return () => subscription.unsubscribe();
   }, []);
