@@ -119,6 +119,7 @@ const GerenciarCarros = () => {
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead className="w-24">Foto</TableHead>
                 <TableHead>Carro</TableHead>
                 <TableHead>Categoria</TableHead>
                 <TableHead>Valor</TableHead>
@@ -129,13 +130,28 @@ const GerenciarCarros = () => {
             <TableBody>
               {cars.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={5} className="text-center py-8 text-gray-500">
+                  <TableCell colSpan={6} className="text-center py-8 text-gray-500">
                     Nenhum veículo cadastrado
                   </TableCell>
                 </TableRow>
               ) : (
                 cars.map((car) => (
                   <TableRow key={car.id}>
+                    <TableCell>
+                      <div className="w-16 h-16 rounded-md overflow-hidden bg-muted">
+                        {car.main_image_url ? (
+                          <img 
+                            src={car.main_image_url} 
+                            alt={car.name}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs">
+                            Sem foto
+                          </div>
+                        )}
+                      </div>
+                    </TableCell>
                     <TableCell>
                       <div>
                         <p className="font-medium">{car.name}</p>
