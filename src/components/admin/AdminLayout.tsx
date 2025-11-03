@@ -12,18 +12,14 @@ interface AdminLayoutProps {
 const AdminLayout = ({ children }: AdminLayoutProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, isAdmin, loading, signOut } = useAuth();
+  const { user, loading, signOut } = useAuth();
 
   useEffect(() => {
     if (loading) return;
     if (!user) {
       navigate("/admin/login");
-      return;
     }
-    if (!isAdmin) {
-      navigate("/admin/login");
-    }
-  }, [user, isAdmin, loading, navigate]);
+  }, [user, loading, navigate]);
 
 const handleLogout = async () => {
   await signOut();
