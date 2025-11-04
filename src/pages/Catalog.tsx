@@ -24,6 +24,26 @@ const Catalog = () => {
     status: ""
   });
 
+  const translateTransmission = (transmission: string) => {
+    const translations: Record<string, string> = {
+      'manual': 'Manual',
+      'automatic': 'Automático',
+      'semi-automatic': 'Semi-automático'
+    };
+    return translations[transmission.toLowerCase()] || transmission;
+  };
+
+  const translateFuel = (fuel: string) => {
+    const translations: Record<string, string> = {
+      'gasoline': 'Gasolina',
+      'diesel': 'Diesel',
+      'electric': 'Elétrico',
+      'hybrid': 'Híbrido',
+      'flex': 'Flex'
+    };
+    return translations[fuel.toLowerCase()] || fuel;
+  };
+
   useEffect(() => {
     fetchVehicles();
   }, []);
@@ -210,11 +230,11 @@ const Catalog = () => {
                       </div>
                       <div>
                         <p className="text-xs">Câmbio</p>
-                        <p className="font-medium text-foreground capitalize">{vehicle.transmission}</p>
+                        <p className="font-medium text-foreground">{translateTransmission(vehicle.transmission)}</p>
                       </div>
                       <div>
                         <p className="text-xs">Combustível</p>
-                        <p className="font-medium text-foreground capitalize">{vehicle.fuel}</p>
+                        <p className="font-medium text-foreground">{translateFuel(vehicle.fuel)}</p>
                       </div>
                     </div>
                   </div>
