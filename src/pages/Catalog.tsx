@@ -140,18 +140,18 @@ const Catalog = () => {
                 </SelectTrigger>
                 <SelectContent className="bg-background z-50">
                   <SelectItem value="Audi">Audi</SelectItem>
-                  <SelectItem value="Mercedes">Mercedes</SelectItem>
                   <SelectItem value="BMW">BMW</SelectItem>
-                  <SelectItem value="Volvo">Volvo</SelectItem>
                   <SelectItem value="BYD">BYD</SelectItem>
-                  <SelectItem value="Jaguar">Jaguar</SelectItem>
-                  <SelectItem value="Porsche">Porsche</SelectItem>
-                  <SelectItem value="Volkswagen">Volkswagen</SelectItem>
-                  <SelectItem value="Toyota">Toyota</SelectItem>
                   <SelectItem value="Chevrolet">Chevrolet</SelectItem>
                   <SelectItem value="Fiat">Fiat</SelectItem>
+                  <SelectItem value="Jaguar">Jaguar</SelectItem>
                   <SelectItem value="Lexus">Lexus</SelectItem>
+                  <SelectItem value="Mercedes">Mercedes</SelectItem>
                   <SelectItem value="Peugeot">Peugeot</SelectItem>
+                  <SelectItem value="Porsche">Porsche</SelectItem>
+                  <SelectItem value="Toyota">Toyota</SelectItem>
+                  <SelectItem value="Volkswagen">Volkswagen</SelectItem>
+                  <SelectItem value="Volvo">Volvo</SelectItem>
                 </SelectContent>
               </Select>
               <Input 
