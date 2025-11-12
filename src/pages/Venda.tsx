@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 const saleFormSchema = z.object({
   brand: z.string().min(1, "Marca é obrigatória").max(100),
@@ -17,10 +18,19 @@ const saleFormSchema = z.object({
   year: z.string().regex(/^\d{4}$/, "Ano deve ter 4 dígitos"),
   version: z.string().max(100).optional(),
   kilometers: z.string().regex(/^\d+$/, "Quilometragem deve ser um número").optional(),
+  desired_value: z.string().min(1, "Valor desejado é obrigatório"),
+});
+
+const contactFormSchema = z.object({
+  owner_name: z.string().min(1, "Nome é obrigatório").max(100),
+  phone: z.string().min(1, "Telefone é obrigatório").max(20),
 });
 
 const Venda = () => {
   const { toast } = useToast();
+  const [showContactForm, setShowContactForm] = useState(false);
+  const [vehicleData, setVehicleData] = useState<z.infer<typeof saleFormSchema> | null>(null);
+  
   const form = useForm<z.infer<typeof saleFormSchema>>({
     resolver: zodResolver(saleFormSchema),
     defaultValues: {
@@ -29,19 +39,36 @@ const Venda = () => {
       year: "",
       version: "",
       kilometers: "",
+      desired_value: "",
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof saleFormSchema>) => {
+  const contactForm = useForm<z.infer<typeof contactFormSchema>>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      owner_name: "",
+      phone: "",
+    },
+  });
+
+  const onFirstFormSubmit = (values: z.infer<typeof saleFormSchema>) => {
+    setVehicleData(values);
+    setShowContactForm(true);
+  };
+
+  const onFinalSubmit = async (contactValues: z.infer<typeof contactFormSchema>) => {
+    if (!vehicleData) return;
+
     try {
       const { error } = await supabase.from('sale_submissions').insert({
-        brand: values.brand,
-        model: values.model,
-        year: parseInt(values.year),
-        version: values.version || null,
-        kilometers: values.kilometers ? parseInt(values.kilometers) : null,
-        owner_name: "",
-        phone: "",
+        brand: vehicleData.brand,
+        model: vehicleData.model,
+        year: parseInt(vehicleData.year),
+        version: vehicleData.version || null,
+        kilometers: vehicleData.kilometers ? parseInt(vehicleData.kilometers) : null,
+        desired_value: vehicleData.desired_value,
+        owner_name: contactValues.owner_name,
+        phone: contactValues.phone,
       });
 
       if (error) throw error;
@@ -52,6 +79,9 @@ const Venda = () => {
       });
       
       form.reset();
+      contactForm.reset();
+      setShowContactForm(false);
+      setVehicleData(null);
     } catch (error) {
       console.error('Error:', error);
       toast({
@@ -95,7 +125,7 @@ const Venda = () => {
           <div className="bg-white p-8 md:p-12 rounded-lg shadow-2xl w-full border-2 border-lime-500">
             <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Preencha o formulário:</h2>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <form onSubmit={form.handleSubmit(onFirstFormSubmit)} className="space-y-4">
                 <FormField
                   control={form.control}
                   name="brand"
@@ -156,12 +186,23 @@ const Venda = () => {
                     </FormItem>
                   )}
                 />
+                <FormField
+                  control={form.control}
+                  name="desired_value"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Valor desejado" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <Button
                   type="submit"
                   className="w-full bg-lime-500 hover:bg-lime-600 text-white font-bold"
-                  disabled={form.formState.isSubmitting}
                 >
-                  {form.formState.isSubmitting ? "Enviando..." : "Enviar"}
+                  Continuar
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M10.293 15.707a1 1 0 010-1.414L14.586 10l-4.293-4.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clipRule="evenodd" />
                     <path fillRule="evenodd" d="M4.293 15.707a1 1 0 010-1.414L8.586 10 4.293 5.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clipRule="evenodd" />
@@ -171,6 +212,49 @@ const Venda = () => {
             </Form>
           </div>
         </div>
+
+        <Dialog open={showContactForm} onOpenChange={setShowContactForm}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold text-center">Complete seu cadastro</DialogTitle>
+            </DialogHeader>
+            <Form {...contactForm}>
+              <form onSubmit={contactForm.handleSubmit(onFinalSubmit)} className="space-y-4">
+                <FormField
+                  control={contactForm.control}
+                  name="owner_name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Nome completo" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={contactForm.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Telefone" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button
+                  type="submit"
+                  className="w-full bg-lime-500 hover:bg-lime-600 text-white font-bold"
+                  disabled={contactForm.formState.isSubmitting}
+                >
+                  {contactForm.formState.isSubmitting ? "Enviando..." : "Enviar"}
+                </Button>
+              </form>
+            </Form>
+          </DialogContent>
+        </Dialog>
       </main>
 
       <Footer />
