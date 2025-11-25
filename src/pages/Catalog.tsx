@@ -103,7 +103,7 @@ const Catalog = () => {
           {/* Filters */}
           <div className="bg-card border rounded-lg p-6 mb-8">
             <h2 className="text-lg font-semibold mb-4">Filtrar Veículos</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <Input 
                 placeholder="Ano" 
                 value={filters.year}
@@ -156,7 +156,6 @@ const Catalog = () => {
               <Button 
                 variant="outline" 
                 onClick={clearFilters}
-                className="md:col-span-2 lg:col-span-1"
               >
                 Limpar Filtros
               </Button>
