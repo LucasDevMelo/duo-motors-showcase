@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState, useEffect, useRef } from "react"; // Adicionado useRef
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -44,61 +44,46 @@ const featuredCars = [
 
 const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const videoRef = useRef(null); // Referência para o vídeo
 
-  // --- LÓGICA DO SLIDER ---
+  // --- LÓGICA SIMPLIFICADA ---
+  // Função para o slide anterior
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev === 0 ? featuredCars.length - 1 : prev - 1));
   };
 
+  // Função para o próximo slide
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev === featuredCars.length - 1 ? 0 : prev + 1));
   };
 
-  // Slider automático
+  // Troca automática de slide a cada 7 segundos (aumentado para apreciar a animação)
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
-    }, 7000);
+    }, 7000); // Duração aumentada para o efeito de zoom ser mais perceptível
     return () => clearInterval(interval);
   }, [currentSlide]);
-
-  // --- LÓGICA PARA FORÇAR O VÍDEO NO MOBILE ---
-  useEffect(() => {
-    // Tenta dar play assim que o componente monta
-    if (videoRef.current) {
-      videoRef.current.play().catch((error) => {
-        console.log("Autoplay foi bloqueado pelo navegador inicialmente:", error);
-      });
-    }
-  }, []);
 
   return (
     <div className="min-h-screen">
       <Header />
       <WhatsAppButton />
 
-      {/* Hero e Quick Navigation */}
-      <section className="relative h-[90vh] sm:h-screen mt-16 overflow-hidden bg-black">
+      {/* Hero e Quick Navigation (sem alterações) */}
+      <section className="relative h-[90vh] sm:h-screen mt-16 overflow-hidden">
         <video
-          ref={videoRef}
-          className="absolute inset-0 w-full h-full object-cover opacity-60 sm:opacity-100" // Ajuste de opacidade para garantir leitura
+          className="absolute inset-0 w-full h-full object-cover"
           autoPlay
           loop
           muted
-          playsInline // Essencial para iOS não abrir em tela cheia
-          preload="auto" // Força o download imediato
-          poster={porsche911Image} // Opcional: Coloque uma imagem aqui para aparecer enquanto o vídeo carrega
+          playsInline
         >
           <source src="/videos/hero-bg.mp4" type="video/mp4" />
           Seu navegador não suporta vídeo de fundo.
         </video>
-        
-        {/* Overlay escuro para garantir que o texto apareça mesmo se o vídeo for claro */}
         <div className="absolute inset-0 bg-black/50 z-10" />
-        
         <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-center text-center sm:text-left">
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white mb-6 max-w-2xl mx-auto sm:mx-0 drop-shadow-lg">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white mb-6 max-w-2xl mx-auto sm:mx-0">
             Encontre seu novo carro na Duo Motors
           </h1>
           <Button
@@ -142,6 +127,8 @@ const Index = () => {
           </h2>
 
           <div className="relative w-full aspect-video sm:aspect-auto sm:h-[750px] overflow-hidden rounded-none">
+            {/* --- NOVA ESTRUTURA PARA ANIMAÇÃO --- */}
+            {/* Renderizamos todas as imagens empilhadas e controlamos a visibilidade com opacidade */}
             {featuredCars.map((car, index) => (
               <div
                 key={index}
@@ -159,6 +146,7 @@ const Index = () => {
               </div>
             ))}
 
+            {/* O conteúdo (texto) agora fica em um container separado, sempre visível */}
             <div className="relative z-20 flex flex-col justify-between h-full p-4 sm:p-10 pointer-events-none">
               <div className="text-white font-bold">
                 <p className="text-xl sm:text-3xl md:text-4xl uppercase tracking-wide leading-tight">
@@ -193,6 +181,7 @@ const Index = () => {
               </div>
             </div>
 
+            {/* Container das setas em desktop/tablet */}
             <div className="hidden sm:flex absolute inset-0 z-30 items-center justify-between px-4">
               <button onClick={prevSlide} className="p-2 sm:p-3 rounded-sm bg-black/60 hover:bg-black/80 transition text-white">
                 <ChevronLeft size={20} className="sm:w-6 sm:h-6" />
@@ -203,6 +192,7 @@ const Index = () => {
             </div>
           </div>
 
+          {/* Container das setas em celular */}
           <div className="flex sm:hidden justify-center gap-4 mt-6">
             <button onClick={prevSlide} className="p-3 rounded-sm bg-black/60 hover:bg-black/80 transition text-white">
               <ChevronLeft size={24} />
@@ -214,6 +204,7 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Map Section (inalterado) */}
       <section className="py-10 sm:py-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-6 sm:mb-8">
