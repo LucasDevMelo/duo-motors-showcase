@@ -14,7 +14,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 
 // --- BACKGROUND COMPONENT (Geométrico Low-Poly) ---
 const BackgroundPattern = () => (
-  <div className="fixed inset-0 overflow-hidden -z-10 bg-[#f0f2f5]">
+  <div className="absolute inset-0 overflow-hidden -z-10 bg-[#f0f2f5]">
     <div className="absolute inset-0 bg-gradient-to-br from-white via-[#e6e9ef] to-[#dbe0e8]" />
     <div className="absolute -top-[20%] -left-[20%] w-[80%] h-[80%] bg-white/40 skew-y-[-15deg] rotate-12 transform-gpu blur-[1px]" />
     <div className="absolute top-[10%] right-[-10%] w-[60%] h-[70%] bg-slate-200/30 skew-x-[-20deg] -rotate-6 transform-gpu" />
