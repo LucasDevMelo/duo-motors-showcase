@@ -12,6 +12,22 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
+// --- BACKGROUND COMPONENT (Geométrico Low-Poly) ---
+const BackgroundPattern = () => (
+  <div className="fixed inset-0 overflow-hidden -z-10 bg-[#f0f2f5]">
+    <div className="absolute inset-0 bg-gradient-to-br from-white via-[#e6e9ef] to-[#dbe0e8]" />
+    <div className="absolute -top-[20%] -left-[20%] w-[80%] h-[80%] bg-white/40 skew-y-[-15deg] rotate-12 transform-gpu blur-[1px]" />
+    <div className="absolute top-[10%] right-[-10%] w-[60%] h-[70%] bg-slate-200/30 skew-x-[-20deg] -rotate-6 transform-gpu" />
+    <div className="absolute bottom-[-10%] left-[10%] w-[50%] h-[60%] bg-white/70 skew-y-12 -rotate-[15deg] transform-gpu" />
+    <div className="absolute top-[30%] right-[20%] w-[40%] h-[50%] bg-slate-300/20 skew-y-[-8deg] rotate-[30deg] transform-gpu blur-[2px]" />
+    <div className="absolute -top-[10%] right-[10%] w-[40%] h-[40%] bg-white/50 skew-x-12 rotate-[20deg] transform-gpu" />
+    <div className="absolute bottom-[-20%] right-[-20%] w-[90%] h-[50%] bg-slate-100/40 skew-y-[-5deg] rotate-[-10deg] transform-gpu" />
+    <div className="absolute inset-0 bg-white opacity-[0.02] mix-blend-overlay pointer-events-none" 
+         style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} 
+    />
+  </div>
+);
+
 const saleFormSchema = z.object({
   brand: z.string().min(1, "Marca é obrigatória").max(100),
   model: z.string().min(1, "Modelo é obrigatório").max(100),
@@ -93,171 +109,170 @@ const Venda = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      <Header />
-      <WhatsAppButton />
+    <div className="min-h-screen flex flex-col relative font-sans">
+      {/* Background Geométrico */}
+      <BackgroundPattern />
 
-      <main
-        className="flex-grow flex flex-col items-center justify-center p-4 pt-24"
-        style={{
-          backgroundImage:  'url(src/assets/vehicle-bg.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      >
-        <div className="w-full max-w-lg mb-8">
+      {/* Wrapper de Conteúdo com z-index */}
+      <div className="relative z-10 flex flex-col min-h-screen">
+        <Header />
+        <WhatsAppButton />
 
-          <div className="text-center mb-8">
-            <div className="inline-block">
-              <h1 className="text-4xl md:text-5xl font-bold text-black">
-                Venda seu Carro
-              </h1>
-              <div className="h-1 bg-lime-500 mt-2 mx-auto rounded"></div>
+        <main className="flex-grow flex flex-col items-center justify-center p-4 pt-24">
+          <div className="w-full max-w-lg mb-8">
+
+            <div className="text-center mb-8">
+              <div className="inline-block">
+                <h1 className="text-4xl md:text-5xl font-bold text-slate-900">
+                  Venda seu Carro
+                </h1>
+                <div className="h-1 bg-lime-500 mt-2 mx-auto rounded"></div>
+              </div>
+
+              <div className="mt-4">
+                <p className="text-xl md:text-2xl text-slate-700">Quer vender seu carro de forma rápida e segura?</p>
+                <p className="text-xl md:text-2xl text-slate-700">A Duo Motors oferece a melhor avaliação!</p>
+              </div>
             </div>
 
-            <div className="mt-4">
-              <p className="text-xl md:text-2xl text-gray-800">Quer vender seu carro de forma rápida e segura?</p>
-              <p className="text-xl md:text-2xl text-gray-800">A Duo Motors oferece a melhor avaliação!</p>
+            {/* Container do formulário com efeito Glassmorphism */}
+            <div className="bg-white/90 backdrop-blur-sm p-8 md:p-12 rounded-2xl shadow-2xl w-full border-2 border-lime-500/50">
+              <h2 className="text-2xl font-bold text-center text-slate-800 mb-6">Preencha o formulário:</h2>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onFirstFormSubmit)} className="space-y-4">
+                  <FormField
+                    control={form.control}
+                    name="brand"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input className="bg-white" placeholder="Marca" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="model"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input className="bg-white" placeholder="Modelo" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="year"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input className="bg-white" placeholder="Ano" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="version"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input className="bg-white" placeholder="Versão" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="kilometers"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input className="bg-white" placeholder="Quilometragem" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="desired_value"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input className="bg-white" placeholder="Valor desejado" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button
+                    type="submit"
+                    className="w-full bg-lime-500 hover:bg-lime-600 text-white font-bold h-12 text-lg shadow-lg hover:shadow-lime-200 transition-all"
+                  >
+                    Continuar
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10.293 15.707a1 1 0 010-1.414L14.586 10l-4.293-4.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                      <path fillRule="evenodd" d="M4.293 15.707a1 1 0 010-1.414L8.586 10 4.293 5.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </Button>
+                </form>
+              </Form>
             </div>
           </div>
 
-          <div className="bg-white p-8 md:p-12 rounded-lg shadow-2xl w-full border-2 border-lime-500">
-            <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Preencha o formulário:</h2>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onFirstFormSubmit)} className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="brand"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input placeholder="Marca" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="model"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input placeholder="Modelo" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="year"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input placeholder="Ano" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="version"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input placeholder="Versão" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="kilometers"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input placeholder="Quilometragem" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="desired_value"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input placeholder="Valor desejado" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button
-                  type="submit"
-                  className="w-full bg-lime-500 hover:bg-lime-600 text-white font-bold"
-                >
-                  Continuar
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10.293 15.707a1 1 0 010-1.414L14.586 10l-4.293-4.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                    <path fillRule="evenodd" d="M4.293 15.707a1 1 0 010-1.414L8.586 10 4.293 5.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                  </svg>
-                </Button>
-              </form>
-            </Form>
-          </div>
-        </div>
+          <Dialog open={showContactForm} onOpenChange={setShowContactForm}>
+            <DialogContent className="sm:max-w-md bg-white/95 backdrop-blur-xl border-lime-500">
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-bold text-center">Complete seu cadastro</DialogTitle>
+              </DialogHeader>
+              <Form {...contactForm}>
+                <form onSubmit={contactForm.handleSubmit(onFinalSubmit)} className="space-y-4">
+                  <FormField
+                    control={contactForm.control}
+                    name="owner_name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input placeholder="Nome completo" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={contactForm.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input placeholder="Telefone" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button
+                    type="submit"
+                    className="w-full bg-lime-500 hover:bg-lime-600 text-white font-bold h-10"
+                    disabled={contactForm.formState.isSubmitting}
+                  >
+                    {contactForm.formState.isSubmitting ? "Enviando..." : "Enviar"}
+                  </Button>
+                </form>
+              </Form>
+            </DialogContent>
+          </Dialog>
+        </main>
 
-        <Dialog open={showContactForm} onOpenChange={setShowContactForm}>
-          <DialogContent className="sm:max-w-md">
-            <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-center">Complete seu cadastro</DialogTitle>
-            </DialogHeader>
-            <Form {...contactForm}>
-              <form onSubmit={contactForm.handleSubmit(onFinalSubmit)} className="space-y-4">
-                <FormField
-                  control={contactForm.control}
-                  name="owner_name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input placeholder="Nome completo" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={contactForm.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input placeholder="Telefone" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button
-                  type="submit"
-                  className="w-full bg-lime-500 hover:bg-lime-600 text-white font-bold"
-                  disabled={contactForm.formState.isSubmitting}
-                >
-                  {contactForm.formState.isSubmitting ? "Enviando..." : "Enviar"}
-                </Button>
-              </form>
-            </Form>
-          </DialogContent>
-        </Dialog>
-      </main>
-
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 };
