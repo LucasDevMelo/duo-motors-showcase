@@ -19,9 +19,7 @@ const Catalog = () => {
     maxPrice: "",
     category: "",
     brand: "",
-    model: "",
-    maxKm: "",
-    status: ""
+    model: ""
   });
 
   const translateTransmission = (transmission: string) => {
@@ -78,8 +76,6 @@ const Catalog = () => {
       if (filters.category && vehicle.category !== filters.category) return false;
       if (filters.brand && !vehicle.brand.toLowerCase().includes(filters.brand.toLowerCase())) return false;
       if (filters.model && !vehicle.model.toLowerCase().includes(filters.model.toLowerCase())) return false;
-      if (filters.maxKm && vehicle.kilometers > parseInt(filters.maxKm)) return false;
-      if (filters.status && vehicle.status !== filters.status) return false;
       return true;
     });
   }, [vehicles, filters]);
@@ -90,9 +86,7 @@ const Catalog = () => {
       maxPrice: "",
       category: "",
       brand: "",
-      model: "",
-      maxKm: "",
-      status: ""
+      model: ""
     });
   };
 
@@ -109,7 +103,7 @@ const Catalog = () => {
           {/* Filters */}
           <div className="bg-card border rounded-lg p-6 mb-8">
             <h2 className="text-lg font-semibold mb-4">Filtrar Veículos</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <Input 
                 placeholder="Ano" 
                 value={filters.year}
@@ -159,26 +153,9 @@ const Catalog = () => {
                 value={filters.model}
                 onChange={(e) => setFilters({...filters, model: e.target.value})}
               />
-              <Input 
-                placeholder="KM máximo" 
-                type="number"
-                value={filters.maxKm}
-                onChange={(e) => setFilters({...filters, maxKm: e.target.value})}
-              />
-              <Select value={filters.status} onValueChange={(value) => setFilters({...filters, status: value})}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="available">Disponível</SelectItem>
-                  <SelectItem value="sold">Vendido</SelectItem>
-                  <SelectItem value="reserved">Reservado</SelectItem>
-                </SelectContent>
-              </Select>
               <Button 
                 variant="outline" 
                 onClick={clearFilters}
-                className="md:col-span-2 lg:col-span-1"
               >
                 Limpar Filtros
               </Button>
